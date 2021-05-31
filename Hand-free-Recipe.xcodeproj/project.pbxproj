@@ -1,0 +1,600 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		60432529266510DA00495D0A /* Hand_free_RecipeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60432528266510DA00495D0A /* Hand_free_RecipeApp.swift */; };
+		6043252B266510DA00495D0A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6043252A266510DA00495D0A /* ContentView.swift */; };
+		6043252D266510DD00495D0A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6043252C266510DD00495D0A /* Assets.xcassets */; };
+		60432530266510DD00495D0A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6043252F266510DD00495D0A /* Preview Assets.xcassets */; };
+		60432532266510DD00495D0A /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60432531266510DD00495D0A /* Persistence.swift */; };
+		60432535266510DD00495D0A /* Hand_free_Recipe.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 60432533266510DD00495D0A /* Hand_free_Recipe.xcdatamodeld */; };
+		60432540266510DD00495D0A /* Hand_free_RecipeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6043253F266510DD00495D0A /* Hand_free_RecipeTests.swift */; };
+		6043254B266510DD00495D0A /* Hand_free_RecipeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6043254A266510DD00495D0A /* Hand_free_RecipeUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		6043253C266510DD00495D0A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6043251D266510DA00495D0A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 60432524266510DA00495D0A;
+			remoteInfo = "Hand-free-Recipe";
+		};
+		60432547266510DD00495D0A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6043251D266510DA00495D0A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 60432524266510DA00495D0A;
+			remoteInfo = "Hand-free-Recipe";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		60432525266510DA00495D0A /* Hand-free-Recipe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hand-free-Recipe.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		60432528266510DA00495D0A /* Hand_free_RecipeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hand_free_RecipeApp.swift; sourceTree = "<group>"; };
+		6043252A266510DA00495D0A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		6043252C266510DD00495D0A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6043252F266510DD00495D0A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		60432531266510DD00495D0A /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		60432534266510DD00495D0A /* Hand_free_Recipe.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Hand_free_Recipe.xcdatamodel; sourceTree = "<group>"; };
+		60432536266510DD00495D0A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6043253B266510DD00495D0A /* Hand-free-RecipeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Hand-free-RecipeTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6043253F266510DD00495D0A /* Hand_free_RecipeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hand_free_RecipeTests.swift; sourceTree = "<group>"; };
+		60432541266510DD00495D0A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		60432546266510DD00495D0A /* Hand-free-RecipeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Hand-free-RecipeUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6043254A266510DD00495D0A /* Hand_free_RecipeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hand_free_RecipeUITests.swift; sourceTree = "<group>"; };
+		6043254C266510DD00495D0A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		60432522266510DA00495D0A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		60432538266510DD00495D0A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		60432543266510DD00495D0A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6043251C266510DA00495D0A = {
+			isa = PBXGroup;
+			children = (
+				60432527266510DA00495D0A /* Hand-free-Recipe */,
+				6043253E266510DD00495D0A /* Hand-free-RecipeTests */,
+				60432549266510DD00495D0A /* Hand-free-RecipeUITests */,
+				60432526266510DA00495D0A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		60432526266510DA00495D0A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				60432525266510DA00495D0A /* Hand-free-Recipe.app */,
+				6043253B266510DD00495D0A /* Hand-free-RecipeTests.xctest */,
+				60432546266510DD00495D0A /* Hand-free-RecipeUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		60432527266510DA00495D0A /* Hand-free-Recipe */ = {
+			isa = PBXGroup;
+			children = (
+				60432528266510DA00495D0A /* Hand_free_RecipeApp.swift */,
+				6043252A266510DA00495D0A /* ContentView.swift */,
+				6043252C266510DD00495D0A /* Assets.xcassets */,
+				60432531266510DD00495D0A /* Persistence.swift */,
+				60432536266510DD00495D0A /* Info.plist */,
+				60432533266510DD00495D0A /* Hand_free_Recipe.xcdatamodeld */,
+				6043252E266510DD00495D0A /* Preview Content */,
+			);
+			path = "Hand-free-Recipe";
+			sourceTree = "<group>";
+		};
+		6043252E266510DD00495D0A /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				6043252F266510DD00495D0A /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		6043253E266510DD00495D0A /* Hand-free-RecipeTests */ = {
+			isa = PBXGroup;
+			children = (
+				6043253F266510DD00495D0A /* Hand_free_RecipeTests.swift */,
+				60432541266510DD00495D0A /* Info.plist */,
+			);
+			path = "Hand-free-RecipeTests";
+			sourceTree = "<group>";
+		};
+		60432549266510DD00495D0A /* Hand-free-RecipeUITests */ = {
+			isa = PBXGroup;
+			children = (
+				6043254A266510DD00495D0A /* Hand_free_RecipeUITests.swift */,
+				6043254C266510DD00495D0A /* Info.plist */,
+			);
+			path = "Hand-free-RecipeUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		60432524266510DA00495D0A /* Hand-free-Recipe */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6043254F266510DD00495D0A /* Build configuration list for PBXNativeTarget "Hand-free-Recipe" */;
+			buildPhases = (
+				60432521266510DA00495D0A /* Sources */,
+				60432522266510DA00495D0A /* Frameworks */,
+				60432523266510DA00495D0A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Hand-free-Recipe";
+			productName = "Hand-free-Recipe";
+			productReference = 60432525266510DA00495D0A /* Hand-free-Recipe.app */;
+			productType = "com.apple.product-type.application";
+		};
+		6043253A266510DD00495D0A /* Hand-free-RecipeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 60432552266510DD00495D0A /* Build configuration list for PBXNativeTarget "Hand-free-RecipeTests" */;
+			buildPhases = (
+				60432537266510DD00495D0A /* Sources */,
+				60432538266510DD00495D0A /* Frameworks */,
+				60432539266510DD00495D0A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6043253D266510DD00495D0A /* PBXTargetDependency */,
+			);
+			name = "Hand-free-RecipeTests";
+			productName = "Hand-free-RecipeTests";
+			productReference = 6043253B266510DD00495D0A /* Hand-free-RecipeTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		60432545266510DD00495D0A /* Hand-free-RecipeUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 60432555266510DD00495D0A /* Build configuration list for PBXNativeTarget "Hand-free-RecipeUITests" */;
+			buildPhases = (
+				60432542266510DD00495D0A /* Sources */,
+				60432543266510DD00495D0A /* Frameworks */,
+				60432544266510DD00495D0A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				60432548266510DD00495D0A /* PBXTargetDependency */,
+			);
+			name = "Hand-free-RecipeUITests";
+			productName = "Hand-free-RecipeUITests";
+			productReference = 60432546266510DD00495D0A /* Hand-free-RecipeUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6043251D266510DA00495D0A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1250;
+				LastUpgradeCheck = 1250;
+				TargetAttributes = {
+					60432524266510DA00495D0A = {
+						CreatedOnToolsVersion = 12.5;
+					};
+					6043253A266510DD00495D0A = {
+						CreatedOnToolsVersion = 12.5;
+						TestTargetID = 60432524266510DA00495D0A;
+					};
+					60432545266510DD00495D0A = {
+						CreatedOnToolsVersion = 12.5;
+						TestTargetID = 60432524266510DA00495D0A;
+					};
+				};
+			};
+			buildConfigurationList = 60432520266510DA00495D0A /* Build configuration list for PBXProject "Hand-free-Recipe" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 6043251C266510DA00495D0A;
+			productRefGroup = 60432526266510DA00495D0A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				60432524266510DA00495D0A /* Hand-free-Recipe */,
+				6043253A266510DD00495D0A /* Hand-free-RecipeTests */,
+				60432545266510DD00495D0A /* Hand-free-RecipeUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		60432523266510DA00495D0A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				60432530266510DD00495D0A /* Preview Assets.xcassets in Resources */,
+				6043252D266510DD00495D0A /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		60432539266510DD00495D0A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		60432544266510DD00495D0A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		60432521266510DA00495D0A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				60432535266510DD00495D0A /* Hand_free_Recipe.xcdatamodeld in Sources */,
+				60432532266510DD00495D0A /* Persistence.swift in Sources */,
+				6043252B266510DA00495D0A /* ContentView.swift in Sources */,
+				60432529266510DA00495D0A /* Hand_free_RecipeApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		60432537266510DD00495D0A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				60432540266510DD00495D0A /* Hand_free_RecipeTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		60432542266510DD00495D0A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6043254B266510DD00495D0A /* Hand_free_RecipeUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6043253D266510DD00495D0A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 60432524266510DA00495D0A /* Hand-free-Recipe */;
+			targetProxy = 6043253C266510DD00495D0A /* PBXContainerItemProxy */;
+		};
+		60432548266510DD00495D0A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 60432524266510DA00495D0A /* Hand-free-Recipe */;
+			targetProxy = 60432547266510DD00495D0A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		6043254D266510DD00495D0A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		6043254E266510DD00495D0A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		60432550266510DD00495D0A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"Hand-free-Recipe/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = "Hand-free-Recipe/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.ntutcsie.project.Hand-free-Recipe";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		60432551266510DD00495D0A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"Hand-free-Recipe/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = "Hand-free-Recipe/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.ntutcsie.project.Hand-free-Recipe";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		60432553266510DD00495D0A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "Hand-free-RecipeTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.ntutcsie.project.Hand-free-RecipeTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Hand-free-Recipe.app/Hand-free-Recipe";
+			};
+			name = Debug;
+		};
+		60432554266510DD00495D0A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "Hand-free-RecipeTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.ntutcsie.project.Hand-free-RecipeTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Hand-free-Recipe.app/Hand-free-Recipe";
+			};
+			name = Release;
+		};
+		60432556266510DD00495D0A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "Hand-free-RecipeUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.ntutcsie.project.Hand-free-RecipeUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Hand-free-Recipe";
+			};
+			name = Debug;
+		};
+		60432557266510DD00495D0A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "Hand-free-RecipeUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.ntutcsie.project.Hand-free-RecipeUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Hand-free-Recipe";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		60432520266510DA00495D0A /* Build configuration list for PBXProject "Hand-free-Recipe" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6043254D266510DD00495D0A /* Debug */,
+				6043254E266510DD00495D0A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6043254F266510DD00495D0A /* Build configuration list for PBXNativeTarget "Hand-free-Recipe" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				60432550266510DD00495D0A /* Debug */,
+				60432551266510DD00495D0A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		60432552266510DD00495D0A /* Build configuration list for PBXNativeTarget "Hand-free-RecipeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				60432553266510DD00495D0A /* Debug */,
+				60432554266510DD00495D0A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		60432555266510DD00495D0A /* Build configuration list for PBXNativeTarget "Hand-free-RecipeUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				60432556266510DD00495D0A /* Debug */,
+				60432557266510DD00495D0A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		60432533266510DD00495D0A /* Hand_free_Recipe.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				60432534266510DD00495D0A /* Hand_free_Recipe.xcdatamodel */,
+			);
+			currentVersion = 60432534266510DD00495D0A /* Hand_free_Recipe.xcdatamodel */;
+			path = Hand_free_Recipe.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 6043251D266510DA00495D0A /* Project object */;
+}

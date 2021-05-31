@@ -99,6 +99,9 @@
 		60432527266510DA00495D0A /* Hand-free-Recipe */ = {
 			isa = PBXGroup;
 			children = (
+				6043255A2665160C00495D0A /* ViewModel */,
+				604325592665160800495D0A /* View */,
+				604325582665160200495D0A /* Model */,
 				60432528266510DA00495D0A /* Hand_free_RecipeApp.swift */,
 				6043252A266510DA00495D0A /* ContentView.swift */,
 				6043252C266510DD00495D0A /* Assets.xcassets */,
@@ -134,6 +137,27 @@
 				6043254C266510DD00495D0A /* Info.plist */,
 			);
 			path = "Hand-free-RecipeUITests";
+			sourceTree = "<group>";
+		};
+		604325582665160200495D0A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		604325592665160800495D0A /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		6043255A2665160C00495D0A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

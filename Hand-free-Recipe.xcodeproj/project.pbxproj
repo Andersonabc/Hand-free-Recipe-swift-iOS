@@ -121,9 +121,9 @@
 		60432527266510DA00495D0A /* Hand-free-Recipe */ = {
 			isa = PBXGroup;
 			children = (
-				6043255A2665160C00495D0A /* ViewModel */,
-				604325592665160800495D0A /* View */,
-				604325582665160200495D0A /* Model */,
+				60BAC7BD266737550078D328 /* ViewModels */,
+				604325592665160800495D0A /* Views */,
+				604325582665160200495D0A /* Models */,
 				60432528266510DA00495D0A /* Hand_free_RecipeApp.swift */,
 				6043252A266510DA00495D0A /* ContentView.swift */,
 				6043252C266510DD00495D0A /* Assets.xcassets */,
@@ -161,28 +161,21 @@
 			path = "Hand-free-RecipeUITests";
 			sourceTree = "<group>";
 		};
-		604325582665160200495D0A /* Model */ = {
+		604325582665160200495D0A /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				6082C7832666763B007A17FE /* Recipe */,
 			);
-			path = Model;
+			path = Models;
 			sourceTree = "<group>";
 		};
-		604325592665160800495D0A /* View */ = {
+		604325592665160800495D0A /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				6082C78F2666A671007A17FE /* ImageFullScreenView.swift */,
 				6082C77826662AB0007A17FE /* Recipe */,
 			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		6043255A2665160C00495D0A /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		6082C77826662AB0007A17FE /* Recipe */ = {
@@ -206,6 +199,13 @@
 				6082C78826667D3C007A17FE /* Ingredient.swift */,
 			);
 			path = Recipe;
+			sourceTree = "<group>";
+		};
+		60BAC7BD266737550078D328 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

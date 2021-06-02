@@ -16,6 +16,10 @@ struct ContentView: View {
 //        animation: .default)
     //private var items: FetchedResults<Item>
 
+    init() {
+        UITabBar.appearance().unselectedItemTintColor = UIColor(Color.primary)
+    }
+    
     var body: some View {
 //        List {
 //            ForEach(items) { item in
@@ -32,7 +36,33 @@ struct ContentView: View {
 //                Label("Add Item", systemImage: "plus")
 //            }
 //        }
-        Text("Hello world").padding()
+        
+        TabView {
+            NavigationView {
+                HomeView()
+            }.navigationTitle("Home")
+            .tabItem {
+                Image(systemName: "house")
+                    .resizable()
+                    .font(.largeTitle)
+            }.tag(1)
+            NavigationView {
+                SearchView()
+            }.navigationTitle("Search")
+            .tabItem {
+                Image(systemName: "magnifyingglass")
+                    .resizable()
+                    .font(.largeTitle)
+            }.tag(2)
+            NavigationView {
+                HistoryView()
+            }.navigationTitle("Favorite/History")
+            .tabItem {
+                Image(systemName: "heart")
+                    .resizable()
+                    .font(.largeTitle)
+            }.tag(3)
+        }.accentColor(.orange)
     }
 
     private func addItem() {
@@ -77,5 +107,6 @@ private let itemFormatter: DateFormatter = {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+            .preferredColorScheme(.dark)
     }
 }

@@ -10,8 +10,8 @@ import SwiftUI
 struct HistoryView: View {
     var body: some View {
         NavigationView {
-            
-            CardView()
+
+            RecipeCardView(recipe: Recipe(name: "早餐", coverImage: "breakfast", ingredients: generateFakeIngredients(), steps: generateFakeSteps(), estimatedTime: Int.random(in: 2400..<190000)))
         }
         .background(Color(.sRGB,
                           red: 36/255,

@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// TODO: send recipes
 struct RecipeMainView: View {
     @Environment(\.colorScheme) var colorScheme
 
@@ -89,7 +90,10 @@ struct RecipeMainView: View {
                     .font(.title)
                 Spacer()
             }
-            .padding(EdgeInsets(top: 18, leading: 0, bottom: 18, trailing: 0))
+            .padding()
+            
+            ScrollableStackRecipeView(recipes: (0...10).map { _ in Recipe(name: "早餐", coverImage: "breakfast", ingredients: generateFakeIngredients(), steps: generateFakeSteps(), estimatedTime: Int.random(in: 2400..<190000)) }, showMore: false, isUnlimited: false)
+                .padding(.bottom, 15)
         }
         .toolbar(content: {
                     ToolBarContent(isLike: $isLike)})

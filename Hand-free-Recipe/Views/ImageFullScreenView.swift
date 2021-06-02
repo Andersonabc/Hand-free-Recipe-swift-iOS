@@ -9,13 +9,13 @@ import SwiftUI
 
 struct ImageFullScreenView: View {
     @Binding var isFullScreenImage: Bool
-    let imageURL: String
+    let image: String
 
     // TODO: FullScreen
     var body: some View {
         VStack {
             Spacer()
-            Image("example_food")
+            Image(image)
                 .resizable()
                 .scaledToFit()
             Spacer()
@@ -31,6 +31,6 @@ struct ImageFullScreenView_Previews: PreviewProvider {
     @State static var isFullScreenView: Bool = false
     
     static var previews: some View {
-        ImageFullScreenView(isFullScreenImage: $isFullScreenView, imageURL: "example_food")
+        ImageFullScreenView(isFullScreenImage: $isFullScreenView, image: "example_food")
     }
 }

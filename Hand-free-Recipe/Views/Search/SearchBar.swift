@@ -9,17 +9,25 @@ import SwiftUI
 
 struct SearchBar: View {
     @Binding var text: String
-    @State private var isEditing = false
+    @Binding var isEditing: Bool
     @Binding var gotoSearchPage: Bool
     @Binding var hist: History
     var body: some View {
         HStack {
+            if isEditing {
+                Button(action: {
+                    self.isEditing = false
+                    self.text = ""
+                    self.gotoSearchPage = false
+                }) {
+                    Image(systemName: "arrow.turn.up.left").resizable()
+                        .frame(width: 20, height: 20)
+                }
+                .padding(.leading, 10).foregroundColor(.black)
+            }
             TextField("Search ...", text: $text, onCommit: {
                 self.gotoSearchPage = true
                 hist.appendHist(at: SearchRecord(name: text))
-                //self.history.append(searchRecord(name: self.text))
-                //self.searchedText = self.text
-                //print(self.history.count)
             })
                 .padding(7)
                 .padding(.horizontal, 25)
@@ -47,18 +55,6 @@ struct SearchBar: View {
                     self.isEditing = true
                     self.gotoSearchPage = false
                 }
-            if isEditing {
-                Button(action: {
-                    self.isEditing = false
-                    self.text = ""
-                    self.gotoSearchPage = false
-                }) {
-                    Text("Cancel")
-                }
-                .padding(.trailing, 10)
-                .transition(.move(edge: .trailing))
-                .animation(.default)
-            }
         }
     }
 }

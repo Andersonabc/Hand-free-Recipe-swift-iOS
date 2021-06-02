@@ -33,6 +33,7 @@ struct RecipePresentationView: View {
         .padding(.top, 50)
         .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.inline)
+        .navigationViewStyle(StackNavigationViewStyle())
         .navigationBarItems(
             leading: CustomBackButton(presentationMode: presentationMode, recipeName: recipeName),
             trailing:

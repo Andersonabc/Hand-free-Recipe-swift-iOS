@@ -13,14 +13,14 @@ struct RecipeCardView: View {
     let recipe: Recipe
     
     var body: some View {
-        NavigationLink(destination: RecipeMainView()) {
+        NavigationLink(destination: RecipeView()) {
             VStack {
                 Image(recipe.coverImage)
                     .resizable()
                     .frame(width: 300, height: 300)
                     .aspectRatio(contentMode: .fill)
                     .clipped()
-                
+    
                 HStack {
                     Text(recipe.name)
                         .font(.title)

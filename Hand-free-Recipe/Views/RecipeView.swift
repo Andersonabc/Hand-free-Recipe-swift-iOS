@@ -8,7 +8,7 @@
 import SwiftUI
 
 // TODO: send recipes
-struct RecipeMainView: View {
+struct RecipeView: View {
     @Environment(\.colorScheme) var colorScheme
 
     @State var isLike: Bool = false;
@@ -19,7 +19,7 @@ struct RecipeMainView: View {
     let example_recipe: Recipe = Recipe(name: "炭烤透抽", coverImage: "example_food", ingredients: generateFakeIngredients(), steps: generateFakeSteps(), estimatedTime: 42000)
 
     var body: some View {
-        ScrollView(showsIndicators: false) {
+        ScrollView([.vertical], showsIndicators: true) {
             VStack {
                 GeometryReader { geometry in
                     VStack {
@@ -43,7 +43,6 @@ struct RecipeMainView: View {
                     }
                 }
                 .frame(height: 400)
-                
                 VStack(alignment: .leading) {
                     HStack {
                         Text(example_recipe.name)
@@ -82,7 +81,7 @@ struct RecipeMainView: View {
                 }
                 .padding()
             }
-            .background(Color(red: 36/255, green: 37/255, blue: 38/255).edgesIgnoringSafeArea(.all))
+            .background(Color(red: 36/255, green: 37/255, blue: 38/255))
             .padding(.bottom, 5)
 
             HStack {
@@ -91,7 +90,7 @@ struct RecipeMainView: View {
                 Spacer()
             }
             .padding()
-            
+
             ScrollableStackRecipeView(recipes: (0...10).map { _ in Recipe(name: "早餐", coverImage: "breakfast", ingredients: generateFakeIngredients(), steps: generateFakeSteps(), estimatedTime: Int.random(in: 2400..<190000)) }, showMore: false, isUnlimited: false)
                 .padding(.bottom, 15)
         }
@@ -150,9 +149,10 @@ struct RecipeView_Previews: PreviewProvider {
     
     static var previews: some View {
         NavigationView {
-            RecipeMainView()
+            RecipeView()
                 .preferredColorScheme(.dark)
         }
+        .navigationViewStyle(StackNavigationViewStyle())
 
     }
 }

@@ -10,7 +10,7 @@ import SwiftUI
 struct RecipeStepView: View {
     let step: Int
     let description: String
-    let imageURL: String?
+    let image: String?
     @State var isFullScreenView: Bool = false
 
     var body: some View {
@@ -22,10 +22,10 @@ struct RecipeStepView: View {
                 )
                 Spacer()
             }
-            if let url = imageURL {
+            if let image = image {
                 HStack {
                     Spacer()
-                    Image(url)
+                    Image(image)
                         .resizable()
                         .scaledToFit()
                         .frame(width: UIScreen.main.bounds.width * 0.85)
@@ -35,7 +35,7 @@ struct RecipeStepView: View {
                         }
                 }
                 .fullScreenCover(isPresented: $isFullScreenView, content: {
-                    ImageFullScreenView(isFullScreenImage: $isFullScreenView, imageURL: url)
+                    ImageFullScreenView(isFullScreenImage: $isFullScreenView, image: image)
                 })
             }
         }
@@ -44,6 +44,6 @@ struct RecipeStepView: View {
 
 struct RecipeStepView_Previews: PreviewProvider {
     static var previews: some View {
-        RecipeStepView(step: 1, description: "Test 123", imageURL: "")
+        RecipeStepView(step: 1, description: "Test 123", image: nil)
     }
 }

@@ -13,17 +13,17 @@ struct RecipeStep {
             return self._description
         }
     }
-    var image: String {
+    var image: String? {
         get {
             return self._image
         }
     }
     
-    init(description: String, image: String) {
+    init(description: String, image: String?) {
         self._description = description
         self._image = image
     }
 
     private let _description: String
-    private let _image: String
+    private let _image: String?
 }

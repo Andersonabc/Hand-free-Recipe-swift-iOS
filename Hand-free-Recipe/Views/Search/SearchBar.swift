@@ -23,7 +23,7 @@ struct SearchBar: View {
                     Image(systemName: "arrow.turn.up.left").resizable()
                         .frame(width: 20, height: 20)
                 }
-                .padding(.leading, 10).foregroundColor(.black)
+                .padding(.leading, 10).foregroundColor(.white)
             }
             TextField("Search ...", text: $text, onCommit: {
                 self.gotoSearchPage = true

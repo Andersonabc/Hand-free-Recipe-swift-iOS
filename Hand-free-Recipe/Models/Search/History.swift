@@ -22,9 +22,7 @@ struct History{
     }
     
     mutating func appendHist(at record: SearchRecord){
-        print("going to append")
         if !self.dataString.contains(record.name){
-            print("successfully append")
             self.data.append(record)
             self.dataString.append(record.name)
         }

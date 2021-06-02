@@ -194,6 +194,7 @@
 		604325592665160800495D0A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				717112AD2667831B00CE6FE5 /* SearchView.swift */,
 				717112AC266782EB00CE6FE5 /* Search */,
 				60B21BD92667564900F5E771 /* Shared */,
 				6043255B26652CD100495D0A /* RecipeView.swift */,
@@ -247,7 +248,6 @@
 		717112AC266782EB00CE6FE5 /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				717112AD2667831B00CE6FE5 /* SearchView.swift */,
 				717112B02667834900CE6FE5 /* SearchBar.swift */,
 			);
 			path = Search;

@@ -19,23 +19,20 @@ struct SearchView: View {
                           SearchRecord(name: "fish and chips")
                                 ]
     var body: some View {
-        NavigationView {
-            //VStack {
                 VStack{
                     if(isEditing){
                         VStack{
                             HStack {
                                 Text("Let's search what you love!")
                                     .font(.system(size: 30, weight: .light, design: .rounded))
-                            }.padding(.top, -60)
-                            SearchBar(text: $searchText, isEditing: $isEditing, gotoSearchPage:$gotoSearchPage, hist: $hist).padding(.top, -20)
+                            }.padding(.top, 10)
+                            SearchBar(text: $searchText, isEditing: $isEditing, gotoSearchPage:$gotoSearchPage, hist: $hist).padding(0)
                         }
                         if(searchText == ""){
                             List (self.hist.data) { (item) in
                                     HStack {
                                         Image(systemName: "arrow.counterclockwise")
                                         Button(action: {
-                                            print("search")
                                             self.searchText = item.name
                                             self.gotoSearchPage = true
                                         }, label: {
@@ -43,7 +40,6 @@ struct SearchView: View {
                                         })
                                         Spacer()
                                         Button(action: {
-                                            print("delete")
                                             self.gotoSearchPage = false
                                             self.hist.deleteHist(at: item)
                                         }, label: {
@@ -69,8 +65,8 @@ struct SearchView: View {
                                 HStack {
                                     Text("Let's search what you love!")
                                         .font(.system(size: 30, weight: .light, design: .rounded))
-                                }.padding(0)
-                                SearchBar(text: $searchText, isEditing: $isEditing, gotoSearchPage:$gotoSearchPage, hist: $hist)
+                                }.padding(.top, -5)
+                                SearchBar(text: $searchText, isEditing: $isEditing, gotoSearchPage:$gotoSearchPage, hist: $hist).padding(.top, 10)
                             }
                             Text("Popular searches").padding(10).frame(maxWidth: .infinity, alignment: .leading).font(.title)
                             HStack{
@@ -81,7 +77,7 @@ struct SearchView: View {
                                 Image("pasta").resizable().frame(width: 180, height: 100)
                                 Image("spaghetti").resizable().frame(width: 180, height: 100)
                             }
-                        }.padding(.top, -390)
+                        }.padding(.top, -360)
 
                     }
                 }.padding(0)
@@ -89,12 +85,10 @@ struct SearchView: View {
                 
 
             }
-    }
-
 }
 
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
-        SearchView()
+        SearchView().preferredColorScheme(.dark)
     }
 }

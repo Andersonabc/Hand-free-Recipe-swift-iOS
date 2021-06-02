@@ -15,6 +15,8 @@ struct Hand_free_RecipeApp: App {
         WindowGroup {
             ContentView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .preferredColorScheme(.dark)
+                .navigationViewStyle(StackNavigationViewStyle())
         }
     }
 }

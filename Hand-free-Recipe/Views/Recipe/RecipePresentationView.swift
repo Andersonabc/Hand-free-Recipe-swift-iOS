@@ -12,15 +12,15 @@ struct RecipePresentationView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     @State var eyeTrackingMode: Bool = false
+    
     let recipeName: String
-    let descriptions: [String]
-    let imageURLs: [String]
+    var steps: [RecipeStep]
 
     var body: some View {
         HStack {
             TabView {
-                ForEach(descriptions.indices) { step in
-                    RecipePresentationStepView(step: step + 1, description: descriptions[step], imageURL: imageURLs[step])
+                ForEach(steps.indices) { step in
+                    RecipePresentationStepView(step: step + 1, description: steps[step].description, image: steps[step].image)
                         .background(Color.blue)
                         .clipShape(RoundedRectangle(cornerRadius: 10.0, style: .continuous))
                         .padding()
@@ -47,7 +47,7 @@ struct RecipePresentationView: View {
 struct RecipePresentationStepView: View {
     let step: Int
     let description: String
-    let imageURL: String
+    let image: String?
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -59,11 +59,14 @@ struct RecipePresentationStepView: View {
             .padding(.bottom, 5)
             Text(description)
             Spacer()
-            Image(imageURL)
-                .resizable()
-                .scaledToFit()
-                .cornerRadius(4.0)
-            Spacer()
+            
+            if let image = image {
+                Image(image)
+                    .resizable()
+                    .scaledToFit()
+                    .cornerRadius(4.0)
+                Spacer()
+            }
         }
         .padding()
     }
@@ -87,32 +90,10 @@ struct CustomBackButton: View {
 }
 
 struct RecipePresentationView_Previews: PreviewProvider {
-    static let descriptions = generateDesciptions()
-    static let imageURLs = generateImages()
-
-    static func generateDesciptions() -> [String] {
-        var tmp = [String]()
-        
-        for _ in 0...6 {
-            tmp.append(Lorem.sentences(2))
-        }
-
-        return tmp
-    }
-
-    static func generateImages() -> [String] {
-        var tmp = [String]()
-        
-        for _ in 0...6 {
-            tmp.append("example_food")
-        }
-
-        return tmp
-    }
 
     static var previews: some View {
         NavigationView {
-            RecipePresentationView(recipeName: "Test", descriptions: descriptions, imageURLs: imageURLs)
+            RecipePresentationView(recipeName: "Test", steps: generateFakeSteps())
         }
     }
 }

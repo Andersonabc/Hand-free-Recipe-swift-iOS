@@ -96,7 +96,7 @@ struct RecipeView: View {
         }
         .toolbar(content: {
                     ToolBarContent(isLike: $isLike)})
-        .edgesIgnoringSafeArea(.all)
+        .edgesIgnoringSafeArea(.top)
         .fullScreenCover(isPresented: $isFullScreenImage, content: {
             ImageFullScreenView(isFullScreenImage: $isFullScreenImage, image: example_recipe.coverImage)
         })

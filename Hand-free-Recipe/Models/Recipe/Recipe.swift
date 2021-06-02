@@ -20,7 +20,7 @@ struct Recipe {
         }
     }
     
-    var estimatedTime: Int {
+    var estimatedTime: Int? {
         get {
             return self._estimatedTime
         }
@@ -38,7 +38,7 @@ struct Recipe {
         }
     }
     
-    init(name: String, coverImage: String, estimatedTime: Int, ingredients: [Ingredients], steps: [RecipeStep]) {
+    init(name: String, coverImage: String, ingredients: [Ingredients], steps: [RecipeStep], estimatedTime: Int?) {
         self._name = name
         self._coverImage = coverImage
         self._estimatedTime = estimatedTime
@@ -48,7 +48,7 @@ struct Recipe {
 
     private let _name: String
     private let _coverImage: String
-    private let _estimatedTime: Int
+    private let _estimatedTime: Int?
     private let _ingredients: [Ingredients]
     private let _steps: [RecipeStep]
 }

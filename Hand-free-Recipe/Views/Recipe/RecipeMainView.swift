@@ -6,58 +6,16 @@
 //
 
 import SwiftUI
-import LoremSwiftum
 
-func generateFakeIngredients() -> [Ingredients] {
-    var tmp = [Ingredients]()
-
-    let nested = IngredientGroup(name: "烤肉醬")
-
-    for _ in 0...3 {
-        tmp.append(Ingredient(name: "透抽 10斤"))
-        nested.add(ingredient: Ingredient(name: "透抽 10斤"))
-    }
-    
-    tmp.append(nested)
-    tmp.append(nested)
-
-    return tmp
-}
-
-func generateDesciptions() -> [String] {
-    var tmp = [String]()
-    
-    for _ in 0...6 {
-        tmp.append(Lorem.sentences(2))
-    }
-
-    return tmp
-}
-
-func generateImages() -> [String] {
-    var tmp = [String]()
-    
-    for _ in 0...6 {
-        tmp.append("example_food")
-    }
-
-    return tmp
-}
-
-struct RecipeView: View {
+struct RecipeMainView: View {
     @Environment(\.colorScheme) var colorScheme
 
     @State var isLike: Bool = false;
     @State var isFullScreenImage: Bool = false;
     @State var isPresented: Bool = false;
     @State var uiNavigationController: UINavigationController?
-    let recipeImageCover: String = "example_food"
-    let recipeName: String = "炭烤透抽"
-    let cookingDuration: String = "2 小時 10 分鐘"
-    let stepsDescriptions: [String] = generateDesciptions()
-    let stepsImages: [String] = generateImages()
-
-    let ingredients: [Ingredients] = generateFakeIngredients()
+    
+    let example_recipe: Recipe = Recipe(name: "炭烤透抽", coverImage: "example_food", ingredients: generateFakeIngredients(), steps: generateFakeSteps(), estimatedTime: 42000)
 
     var body: some View {
         ScrollView(showsIndicators: false) {
@@ -65,7 +23,7 @@ struct RecipeView: View {
                 GeometryReader { geometry in
                     VStack {
                         if geometry.frame(in: .global).minY <= 0 {
-                            Image(recipeImageCover)
+                            Image(example_recipe.coverImage)
                                 .resizable()
                                 .scaledToFill()
                                 .frame(width: geometry.size.width, height: geometry.size.height)
@@ -74,7 +32,7 @@ struct RecipeView: View {
                                     self.isFullScreenImage.toggle()
                                 }
                         } else {
-                            Image(recipeImageCover)
+                            Image(example_recipe.coverImage)
                                 .resizable()
                                 .scaledToFill()
                                 .frame(width: geometry.size.width, height: geometry.size.height + geometry.frame(in: .global).minY)
@@ -87,14 +45,14 @@ struct RecipeView: View {
                 
                 VStack(alignment: .leading) {
                     HStack {
-                        Text(recipeName)
+                        Text(example_recipe.name)
                             .font(.largeTitle)
                         Spacer()
                     }
                     
                     HStack {
                         Spacer()
-                        NavigationLink(destination: RecipePresentationView(recipeName: recipeName, descriptions: stepsDescriptions, imageURLs: stepsImages)){
+                        NavigationLink(destination: RecipePresentationView(recipeName: example_recipe.name, steps: example_recipe.steps)){
                             Text("卡片模式")
                                 .font(.title2)
                                 .foregroundColor(colorScheme == .dark ? .white : .black)
@@ -106,9 +64,9 @@ struct RecipeView: View {
                     
                     StraightLine()
                     
-                    RecipeCookingDurationView(cookingDuration: self.cookingDuration)
-                    
-                    RecipeDetailView(amount: "", ingredients: ingredients);
+                    RecipeCookingDurationView(estimatedTime: example_recipe.estimatedTime)
+
+                    RecipeDetailView(amount: "", ingredients: example_recipe.ingredients);
                     
                     StraightLine()
                         .padding(EdgeInsets(top: 18, leading: 0, bottom: 18, trailing: 0))
@@ -116,8 +74,8 @@ struct RecipeView: View {
                     Text("步驟")
                         .font(.title)
 
-                    ForEach(stepsDescriptions.indices) { step in
-                        RecipeStepView(step: step + 1, description: stepsDescriptions[step], imageURL: stepsImages[step])
+                    ForEach(example_recipe.steps.indices) { step in
+                        RecipeStepView(step: step + 1, description: example_recipe.steps[step].description, image: example_recipe.steps[step].image)
                             .padding(.top, 18)
                     }
                 }
@@ -137,7 +95,7 @@ struct RecipeView: View {
                     ToolBarContent(isLike: $isLike)})
         .edgesIgnoringSafeArea(.all)
         .fullScreenCover(isPresented: $isFullScreenImage, content: {
-            ImageFullScreenView(isFullScreenImage: $isFullScreenImage, imageURL: recipeImageCover)
+            ImageFullScreenView(isFullScreenImage: $isFullScreenImage, image: example_recipe.coverImage)
         })
     }
 }
@@ -188,7 +146,7 @@ struct RecipeView_Previews: PreviewProvider {
     
     static var previews: some View {
         NavigationView {
-            RecipeView()
+            RecipeMainView()
                 .preferredColorScheme(.dark)
         }
 

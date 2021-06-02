@@ -36,11 +36,11 @@ struct RecipeDetailView: View {
             ForEach(ingredients.indices) { i in
                 if ingredients[i].isComposite() {
                     VStack(alignment: .leading, spacing: 8) {
-                        Text(ingredients[i].getName())
+                        Text(ingredients[i].name)
                         StraightLine()
                         if let children = ingredients[i].children {
                             ForEach(children.indices) { j in
-                                Text(children[j].getName())
+                                Text(children[j].name)
                                 if j != children.count - 1 {
                                     DotLine()
                                 }
@@ -50,7 +50,7 @@ struct RecipeDetailView: View {
                     .padding(.top, 10)
                 }
                 else {
-                    Text(ingredients[i].getName())
+                    Text(ingredients[i].name)
                     if i != ingredients.count - 1 {
                         DotLine()
                     }

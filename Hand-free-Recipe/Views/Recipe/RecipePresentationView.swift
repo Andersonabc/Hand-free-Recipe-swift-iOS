@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import LoremSwiftum
 
 struct RecipePresentationView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>

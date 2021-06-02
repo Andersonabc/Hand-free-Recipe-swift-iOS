@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct RecipeStep {
+class RecipeStep {
     var description: String {
         get {
             return self._description

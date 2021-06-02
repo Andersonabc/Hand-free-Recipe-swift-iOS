@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Recipe {
+class Recipe {
     var coverImage: String {
         get {
             return self._coverImage

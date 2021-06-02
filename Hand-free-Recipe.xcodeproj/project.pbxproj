@@ -105,7 +105,7 @@
 		60432527266510DA00495D0A /* Hand-free-Recipe */ = {
 			isa = PBXGroup;
 			children = (
-				6043255A2665160C00495D0A /* ViewModels */,
+				60BAC7BA266733380078D328 /* ViewModels */,
 				604325592665160800495D0A /* Views */,
 				604325582665160200495D0A /* Models */,
 				60432528266510DA00495D0A /* Hand_free_RecipeApp.swift */,
@@ -162,7 +162,7 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		6043255A2665160C00495D0A /* ViewModels */ = {
+		60BAC7BA266733380078D328 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
 			);

@@ -8,18 +8,24 @@
 import Foundation
 
 class Ingredient: Ingredients {
-    var children: [Ingredients]?
-    private let name: String
-    
-    init(name: String) {
-        self.name = name
-        self.children = nil
+    var children: [Ingredients]? {
+        get {
+            return nil
+        }
     }
 
-    func getName() -> String {
-        return self.name
+    var name: String {
+        get {
+            return self._name
+        }
     }
     
+    init(name: String) {
+        self._name = name
+    }
+
+    private let _name: String
+
     func isComposite() -> Bool {
         return false
     }

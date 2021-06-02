@@ -9,7 +9,7 @@ import Foundation
 
 protocol Ingredients {
     var children: [Ingredients]? { get }
-    func getName() -> String
+    var name: String { get }
     func add(ingredient: Ingredients) -> Void
     func isComposite() -> Bool
 }

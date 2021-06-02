@@ -8,20 +8,28 @@
 import Foundation
 
 class IngredientGroup: Ingredients {
-    var children: [Ingredients]?
-    private let name: String
+    var children: [Ingredients]? {
+        get {
+            return self._children
+        }
+    }
+
+    var name: String {
+        get {
+            self._name
+        }
+    }
 
     init(name: String) {
-        self.name = name
-        self.children = []
+        self._name = name
+        self._children = []
     }
 
-    func getName() -> String {
-        return self.name
-    }
+    private let _name: String
+    private var _children: [Ingredients]?
 
     func add(ingredient: Ingredients) {
-        self.children?.append(ingredient)
+        self._children?.append(ingredient)
     }
  
     func isComposite() -> Bool {

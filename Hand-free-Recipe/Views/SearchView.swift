@@ -7,88 +7,59 @@
 
 import SwiftUI
 
+extension UIApplication {
+    func endEditing() {
+        sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+}
+
 struct SearchView: View {
-    @State var gotoSearchPage: Bool = false
-    @State var hist = History()
-    @State private var searchText = ""
-    @State var isEditing: Bool = false
-    private var Items = [ SearchRecord(name: "Chicken and waffles"),
-                          SearchRecord(name: "Sweet potato casserole"),
-                          SearchRecord(name: "Meatloaf"),
-                          SearchRecord(name: "Taco"),
-                          SearchRecord(name: "fish and chips")
-                                ]
+    @ObservedObject var viewModel: SearchViewModel
+
+    @State var searchText = ""
+    let searchedText: String
+
+    // independant value
+    @State var gotoSearchResultPage: Bool = false
+    @State var enterSearchStatus: Bool = false
+    
+    // shared by value between search pages
+    let inSearchResultPage: Bool
+
     var body: some View {
-                VStack{
-                    if(isEditing){
-                        VStack{
-                            HStack {
-                                Text("Let's search what you love!")
-                                    .font(.system(size: 30, weight: .light, design: .rounded))
-                            }.padding(.top, 10)
-                            SearchBar(text: $searchText, isEditing: $isEditing, gotoSearchPage:$gotoSearchPage, hist: $hist).padding(0)
-                        }
-                        if(searchText == ""){
-                            List (self.hist.data) { (item) in
-                                    HStack {
-                                        Image(systemName: "arrow.counterclockwise")
-                                        Button(action: {
-                                            self.searchText = item.name
-                                            self.gotoSearchPage = true
-                                        }, label: {
-                                            Text(item.name)
-                                        })
-                                        Spacer()
-                                        Button(action: {
-                                            self.gotoSearchPage = false
-                                            self.hist.deleteHist(at: item)
-                                        }, label: {
-                                            Image(systemName: "xmark.circle").foregroundColor(Color.red)
-                                        }).buttonStyle(BorderlessButtonStyle())
-                                    }
-                                }
-                        }else{
-                            List (self.Items.filter({ searchText.isEmpty ? true : $0.name.lowercased().contains(searchText.lowercased()) })) { (item) in
-                                    HStack {
-                                        Button(action: {
-                                            self.gotoSearchPage = false
-                                        }, label: {
-                                            Text(item.name)
-                                        })
-                                    }
-                                }
-                        }
-      
-                    }else{
-                        VStack(alignment: .center){
-                            VStack{
-                                HStack {
-                                    Text("Let's search what you love!")
-                                        .font(.system(size: 30, weight: .light, design: .rounded))
-                                }.padding(.top, -5)
-                                SearchBar(text: $searchText, isEditing: $isEditing, gotoSearchPage:$gotoSearchPage, hist: $hist).padding(.top, 10)
-                            }
-                            Text("Popular searches").padding(10).frame(maxWidth: .infinity, alignment: .leading).font(.title)
-                            HStack{
-                                Image("fish").resizable().frame(width: 180, height: 100)
-                                Image("hamburger").resizable().frame(width: 180, height: 100)
-                            }.padding(.top, 10)
-                            HStack{
-                                Image("pasta").resizable().frame(width: 180, height: 100)
-                                Image("spaghetti").resizable().frame(width: 180, height: 100)
-                            }
-                        }.padding(.top, -360)
+        VStack {
+            // go to search result page
+            NavigationLink(destination: SearchView(viewModel: viewModel, searchedText: searchText, inSearchResultPage: true), isActive: $gotoSearchResultPage) {
+                    EmptyView()
+                }
 
+            SearchBar(enterSearchStatus: $enterSearchStatus, searchText: $searchText, gotoSearchResultPage: $gotoSearchResultPage, searchedText: searchedText, inSearchResultPage: inSearchResultPage)
+
+            if enterSearchStatus {
+                SearchHistoryView(records: $viewModel.historyRecords)
+                    .onAppear(perform: {
+                        viewModel.fetchHistory()
+                    })
+                    .onTapGesture {
+                        UIApplication.shared.endEditing()
                     }
-                }.padding(0)
-                
-                
-
             }
+            else if inSearchResultPage {
+                SearchResultView(searchedText: searchText)
+            }
+            else {
+                SearchCategoryView(searchText: $searchText,  gotoSearchResultPage: $gotoSearchResultPage)
+            }
+        }.navigationBarHidden(true)
+    }
 }
 
 struct SearchView_Previews: PreviewProvider {
+    @StateObject static var viewModel = SearchViewModel()
+    
     static var previews: some View {
-        SearchView().preferredColorScheme(.dark)
+        NavigationView {
+            SearchView(viewModel: viewModel, searchedText: "", inSearchResultPage: false)
+        }
     }
 }

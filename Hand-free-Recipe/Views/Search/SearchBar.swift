@@ -8,59 +8,76 @@
 import SwiftUI
 
 struct SearchBar: View {
-    @Binding var text: String
-    @Binding var isEditing: Bool
-    @Binding var gotoSearchPage: Bool
-    @Binding var hist: History
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+
+    @Binding var enterSearchStatus: Bool
+    @Binding var searchText: String
+    @Binding var gotoSearchResultPage: Bool
+    @State var text: String = ""
+
+    let searchedText: String
+    let inSearchResultPage: Bool
+
     var body: some View {
         HStack {
-            if isEditing {
+            if enterSearchStatus {
                 Button(action: {
-                    self.isEditing = false
-                    self.text = ""
-                    self.gotoSearchPage = false
+                    // endEditing should be put in the first update
+                    // because of using UIResponder.resignFirstResponder
+                    UIApplication.shared.endEditing()
+                    enterSearchStatus = false
+                    text = searchedText
                 }) {
-                    Image(systemName: "arrow.turn.up.left").resizable()
-                        .frame(width: 20, height: 20)
+                    Image(systemName: "chevron.left")
+                        .font(.bold(.title2)())
                 }
-                .padding(.leading, 10).foregroundColor(.white)
             }
-            TextField("Search ...", text: $text, onCommit: {
-                self.gotoSearchPage = true
-                hist.appendHist(at: SearchRecord(name: text))
-            })
-                .padding(7)
-                .padding(.horizontal, 25)
-                .background(Color(.systemGray6))
-                .cornerRadius(8).overlay(
-                    HStack {
-                        Image(systemName: "magnifyingglass")
-                            .foregroundColor(.gray)
-                            .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                            .padding(.leading, 8)
-                        if isEditing {
-                            Button(action: {
-                                self.text = ""
-                                self.gotoSearchPage = false
-                            }) {
-                                Image(systemName: "multiply.circle.fill")
-                                    .foregroundColor(.gray)
-                                    .padding(.trailing, 8)
-                            }
-                        }
-                    }
-                )
-                .padding(.horizontal, 10)
-                .onTapGesture {
-                    self.isEditing = true
-                    self.gotoSearchPage = false
+            else if inSearchResultPage {
+                Button(action: {
+                    presentationMode.wrappedValue.dismiss()
+                }) {
+                    Image(systemName: "chevron.left")
+                        .font(.title2)
                 }
+            }
+
+            HStack {
+                Image(systemName: "magnifyingglass")
+                    .foregroundColor(.primary)
+                    .padding(.leading, 8)
+                TextField("輸入食譜類別、食譜名稱...", text: $text) { _ in
+                    
+                } onCommit: {
+                    if text != searchedText {
+                        searchText = text
+                        gotoSearchResultPage = true
+                    }
+                    enterSearchStatus = false
+                }
+                .onTapGesture {
+                    enterSearchStatus = true
+                }
+            }
+            .frame(height: 38)
+            .overlay(
+                RoundedRectangle(cornerRadius: 18)
+                    .stroke(Color.secondary, lineWidth: 1)
+            )
+            .padding()
         }
+        .padding()
+        .onAppear(perform: {
+            UIScrollView.appearance().keyboardDismissMode = .onDrag
+            text = searchedText
+        })
     }
 }
 
-//struct SearchBar_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SearchBar()
-//    }
-//}
+struct SearchBar_Previews: PreviewProvider {
+    static var previews: some View {
+        NavigationView {
+            SearchBar(enterSearchStatus: .constant(false), searchText: .constant(""), gotoSearchResultPage: .constant(false), searchedText: "", inSearchResultPage: true)
+        }
+        .preferredColorScheme(.dark)
+    }
+}

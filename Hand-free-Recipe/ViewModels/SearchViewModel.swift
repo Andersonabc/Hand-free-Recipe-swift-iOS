@@ -29,4 +29,8 @@ extension SearchViewModel {
             self.historyRecords = data
         }
     }
+    
+    func search(keyword: String) {
+        
+    }
 }

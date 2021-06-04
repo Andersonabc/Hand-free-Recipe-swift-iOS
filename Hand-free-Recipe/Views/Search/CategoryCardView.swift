@@ -8,13 +8,25 @@
 import SwiftUI
 
 struct CategoryCardView: View {
+    let categoryImage: String
+    let categoryName: String
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Image(categoryImage)
+            .resizable()
+            .scaledToFill()
+            .frame(height: 80) // autoadjusting width
+            .clipShape(RoundedRectangle(cornerRadius: 10.0))
+            .brightness(-0.02)
+            .shadow(radius: 5)
+            .overlay(Text(categoryName).font(.headline).bold().foregroundColor(.white).padding(8), alignment: .bottomLeading)
+        
     }
 }
 
 struct CategoryCardView_Previews: PreviewProvider {
     static var previews: some View {
-        CategoryCardView()
+        CategoryCardView(categoryImage: "pasta", categoryName: "義大利麵")
+            .preferredColorScheme(.dark)
     }
 }

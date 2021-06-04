@@ -27,30 +27,33 @@ struct SearchView: View {
     let inSearchResultPage: Bool
 
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             // go to search result page
             NavigationLink(destination: SearchView(viewModel: viewModel, searchedText: searchText, inSearchResultPage: true), isActive: $gotoSearchResultPage) {
                     EmptyView()
                 }
 
             SearchBar(enterSearchStatus: $enterSearchStatus, searchText: $searchText, gotoSearchResultPage: $gotoSearchResultPage, searchedText: searchedText, inSearchResultPage: inSearchResultPage)
-
-            if enterSearchStatus {
-                SearchHistoryView(records: $viewModel.historyRecords)
-                    .onAppear(perform: {
-                        viewModel.fetchHistory()
-                    })
-                    .onTapGesture {
-                        UIApplication.shared.endEditing()
-                    }
-            }
-            else if inSearchResultPage {
-                SearchResultView(searchedText: searchText)
-            }
-            else {
-                SearchCategoryView(searchText: $searchText,  gotoSearchResultPage: $gotoSearchResultPage)
-            }
-        }.navigationBarHidden(true)
+            
+            VStack {
+                if enterSearchStatus {
+                    SearchHistoryView(records: $viewModel.historyRecords)
+                        .onAppear(perform: {
+                            viewModel.fetchHistory()
+                        })
+                        .onTapGesture {
+                            UIApplication.shared.endEditing()
+                        }
+                }
+                else if inSearchResultPage {
+                    SearchResultView(searchedText: searchText)
+                }
+                else {
+                    SearchCategoryView(searchText: $searchText,  gotoSearchResultPage: $gotoSearchResultPage)
+                }
+            }.padding()
+        }
+        .navigationBarHidden(true)
     }
 }
 
@@ -60,6 +63,6 @@ struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             SearchView(viewModel: viewModel, searchedText: "", inSearchResultPage: false)
-        }
+        }.preferredColorScheme(.dark)
     }
 }

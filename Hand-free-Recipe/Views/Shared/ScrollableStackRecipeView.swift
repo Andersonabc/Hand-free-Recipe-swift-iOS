@@ -41,7 +41,7 @@ struct ScrollableStackRecipeView: View {
             else {
                 HStack {
                     ForEach(recipes.indices) { index in
-                        RecipeCardView(recipe: recipes[index])
+                        RecipeCardView(recipe: recipes[index]).padding([.horizontal])
                     }
 
                     if showMore {

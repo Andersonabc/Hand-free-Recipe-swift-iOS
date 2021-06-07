@@ -7,20 +7,22 @@
 
 import SwiftUI
 
+
+// TODO: Make text more flexible
 struct RecipeCardView: View {
     @State private var isFavorite: Bool = false;
     @State private var tap: Bool = false;
     let recipe: Recipe
     
     var body: some View {
-        NavigationLink(destination: RecipeMainView()) {
+        NavigationLink(destination: RecipeView()) {
             VStack {
                 Image(recipe.coverImage)
                     .resizable()
-                    .frame(width: 300, height: 300)
+                    .frame(maxWidth: 300, maxHeight: 300)
                     .aspectRatio(contentMode: .fill)
                     .clipped()
-                
+
                 HStack {
                     Text(recipe.name)
                         .font(.title)
@@ -31,30 +33,30 @@ struct RecipeCardView: View {
     //                                           red: 74/255,
     //                                           green: 74/255,
     //                                           blue: 74/255))
-                        .padding(.bottom, 30)
-                        .lineLimit(2)
+                        
+                        .lineLimit(1)
 
-                    Spacer()
+                    Spacer(minLength: 35) // Need to fix...
                 }
                 .layoutPriority(100)
                 .padding()
-                
+
             }
             .background(Color(.sRGB, red: 228/255, green: 230/255, blue: 235/255, opacity: 0.1))
-            .frame(width: 300, height: 350)
+            .frame(maxWidth: 300, maxHeight: 370)
             .cornerRadius(10)
             .shadow(radius: 10)
+            .aspectRatio(1, contentMode: .fit)
             .overlay(
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(Color(.sRGB, red: 150/255, green: 150/255, blue: 150/255, opacity: 0.1), lineWidth: 1))
-            .padding([.horizontal])
         }
         .overlay(
             Image(systemName: isFavorite ? "heart.fill" : "heart")
                     .resizable()
                     .frame(width: 21, height: 21)
                     .foregroundColor(.red)
-                    .offset(x: -35, y: -25)
+                    .offset(x: -35, y: -20)
                     .onTapGesture {
                         tap = true
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {

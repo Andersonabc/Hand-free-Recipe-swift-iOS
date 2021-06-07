@@ -22,7 +22,7 @@ struct SearchView: View {
     // independant value
     @State var gotoSearchResultPage: Bool = false
     @State var enterSearchStatus: Bool = false
-    
+
     // shared by value between search pages
     let inSearchResultPage: Bool
 
@@ -55,11 +55,9 @@ struct SearchView: View {
 }
 
 struct SearchView_Previews: PreviewProvider {
-    @StateObject static var viewModel = SearchViewModel()
-    
     static var previews: some View {
         NavigationView {
-            SearchView(viewModel: viewModel, searchedText: "", inSearchResultPage: false)
+            SearchView(searchedText: "", inSearchResultPage: false)
         }.preferredColorScheme(.dark)
     }
 }

@@ -6,51 +6,31 @@
 //
 
 import Foundation
-import CoreData
+import Combine
 
 class SearchViewModel: ObservableObject {
-    @Published var results: [Recipe]?
-    
-    private let context = PersistenceController.shared.container.viewContext
-    
+    @Published var keyword: String = ""
+    @Published var results = [String]()
+
+    var subscriptions = Set<AnyCancellable>()
+
     init() {
-        context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        $keyword
+            .debounce(for: 0.5, scheduler: RunLoop.main)
+            .removeDuplicates()
+            .map({ data -> [String] in
+                if data.isEmpty {
+                    return []
+                }
+                return []
+            })
+            .receive(on: DispatchQueue.main)
+            .assign(to: &$results)
     }
 }
 
 extension SearchViewModel {
-    func search(keyword: String) {
-        DispatchQueue.global().async {
-            self.context.perform {
-                let newRecord = SearchHistory(context: self.context)
-                newRecord.keyword = keyword
-                newRecord.timestamp = Date()
-                
-                do {
-                    try self.context.save()
-                }
-                catch {
-                    print(error.localizedDescription)
-                }
-            }
-            
-            DispatchQueue.main.sync {
-                self.results = []
-                print("sss")
-            }
-        }
-    }
-
-    func delete(record: SearchHistory) {
-        self.context.perform {
-            self.context.delete(record)
-            
-            do {
-                try self.context.save()
-            }
-            catch {
-                print(error.localizedDescription)
-            }
-        }
+    func searchByCategory(keyword: String) -> AnyPublisher<[Category], Error> {
+        
     }
 }

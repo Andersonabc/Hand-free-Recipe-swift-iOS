@@ -14,7 +14,7 @@ extension UIApplication {
 }
 
 struct SearchView: View {
-    @ObservedObject var viewModel: SearchViewModel
+    @StateObject var viewModel = SearchViewModel()
 
     @State var searchText = ""
     let searchedText: String
@@ -34,19 +34,16 @@ struct SearchView: View {
                 }
 
             SearchBar(enterSearchStatus: $enterSearchStatus, searchText: $searchText, gotoSearchResultPage: $gotoSearchResultPage, searchedText: searchedText, inSearchResultPage: inSearchResultPage)
-            
+
             VStack {
                 if enterSearchStatus {
-                    SearchHistoryView(records: $viewModel.historyRecords)
-                        .onAppear(perform: {
-                            viewModel.fetchHistory()
-                        })
+                    SearchHistoryView(viewModel: viewModel, searchText: $searchText, gotoSearchResultPage: $gotoSearchResultPage)
                         .onTapGesture {
                             UIApplication.shared.endEditing()
                         }
                 }
                 else if inSearchResultPage {
-                    SearchResultView(searchedText: searchText)
+                    SearchResultView(viewModel: viewModel, keyword: searchedText)
                 }
                 else {
                     SearchCategoryView(searchText: $searchText,  gotoSearchResultPage: $gotoSearchResultPage)

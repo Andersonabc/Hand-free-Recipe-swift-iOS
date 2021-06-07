@@ -9,28 +9,48 @@ import Foundation
 import CoreData
 
 class SearchViewModel: ObservableObject {
-    @Published var historyRecords = [SearchHistory]()
-
+    @Published var results: [Recipe]?
+    
     private let context = PersistenceController.shared.container.viewContext
+    
+    init() {
+        context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+    }
 }
 
 extension SearchViewModel {
-    func fetchHistory() {
-        let request: NSFetchRequest<SearchHistory> = SearchHistory.fetchRequest()
-        
-        request.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: false)]
-        
-        guard let data: [SearchHistory] = try? context.fetch(request) else {
-            print("Error: Couldn't fetch history data from Core Data")
-            return
-        }
-        
-        if !data.isEmpty {
-            self.historyRecords = data
+    func search(keyword: String) {
+        DispatchQueue.global().async {
+            self.context.perform {
+                let newRecord = SearchHistory(context: self.context)
+                newRecord.keyword = keyword
+                newRecord.timestamp = Date()
+                
+                do {
+                    try self.context.save()
+                }
+                catch {
+                    print(error.localizedDescription)
+                }
+            }
+            
+            DispatchQueue.main.sync {
+                self.results = []
+                print("sss")
+            }
         }
     }
-    
-    func search(keyword: String) {
-        
+
+    func delete(record: SearchHistory) {
+        self.context.perform {
+            self.context.delete(record)
+            
+            do {
+                try self.context.save()
+            }
+            catch {
+                print(error.localizedDescription)
+            }
+        }
     }
 }

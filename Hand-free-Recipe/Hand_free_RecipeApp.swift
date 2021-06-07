@@ -17,6 +17,7 @@ struct Hand_free_RecipeApp: App {
             NavigationView {
                 SearchView(viewModel: SearchViewModel(), searchedText: "", inSearchResultPage: false)
             }
+            .environment(\.managedObjectContext, persistenceController.container.viewContext)
             .preferredColorScheme(.dark)
         }
     }

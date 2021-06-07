@@ -10,6 +10,7 @@ import SwiftUI
 struct SearchCategoryView: View {
     let images: [String] = ["pasta", "fish", "hamburger", "spaghetti"]
     let names: [String] = ["義式料理", "魚類料理", "美式速食", "義大利麵"]
+
     @Binding var searchText: String
     @Binding var gotoSearchResultPage: Bool
     

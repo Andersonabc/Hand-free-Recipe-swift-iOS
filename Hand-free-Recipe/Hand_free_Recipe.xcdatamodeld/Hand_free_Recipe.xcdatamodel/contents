@@ -6,6 +6,11 @@
         <fetchIndex name="keywordIndex">
             <fetchIndexElement property="keyword" type="Binary" order="ascending"/>
         </fetchIndex>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="keyword"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
     <elements>
         <element name="SearchHistory" positionX="-63" positionY="-9" width="128" height="59"/>

@@ -52,9 +52,6 @@ struct SearchBar: View {
                         .font(.title2)
                 }.padding(.leading)
             }
-            else {
-                EmptyView()
-            }
 
             HStack {
                 Image(systemName: "magnifyingglass")
@@ -72,6 +69,7 @@ struct SearchBar: View {
                         }
                         enterSearchStatus = false
                     }
+                    .contentShape(Rectangle())
                     .onTapGesture {
                         withAnimation(.easeIn(duration: 0.1)) {
                             enterSearchStatus = true

@@ -13,12 +13,10 @@ struct Hand_free_RecipeApp: App {
 
     var body: some Scene {
         WindowGroup {
-//            ContentView()
-            NavigationView {
-                SearchView(viewModel: SearchViewModel(), searchedText: "", inSearchResultPage: false)
-            }
-            .environment(\.managedObjectContext, persistenceController.container.viewContext)
-            .preferredColorScheme(.dark)
+            ContentView()
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .preferredColorScheme(.dark)
+                .navigationViewStyle(StackNavigationViewStyle())
         }
     }
 }

@@ -13,9 +13,7 @@ extension UIApplication {
     }
 }
 
-struct SearchView: View {
-    @StateObject var viewModel = SearchViewModel()
-
+struct SearchView: View {    
     @State var searchText = ""
     let searchedText: String
 
@@ -29,7 +27,7 @@ struct SearchView: View {
     var body: some View {
         VStack(spacing: 0) {
             // go to search result page
-            NavigationLink(destination: SearchView(viewModel: viewModel, searchedText: searchText, inSearchResultPage: true), isActive: $gotoSearchResultPage) {
+            NavigationLink(destination: SearchView(searchedText: searchText, inSearchResultPage: true), isActive: $gotoSearchResultPage) {
                     EmptyView()
                 }
 
@@ -37,16 +35,16 @@ struct SearchView: View {
 
             VStack {
                 if enterSearchStatus {
-                    SearchHistoryView(viewModel: viewModel, searchText: $searchText, gotoSearchResultPage: $gotoSearchResultPage)
+                    SearchHistoryView(searchText: $searchText, gotoSearchResultPage: $gotoSearchResultPage)
                         .onTapGesture {
                             UIApplication.shared.endEditing()
                         }
                 }
                 else if inSearchResultPage {
-                    SearchResultView(viewModel: viewModel, keyword: searchedText)
+                    SearchResultView(keyword: searchedText)
                 }
                 else {
-                    SearchCategoryView(searchText: $searchText,  gotoSearchResultPage: $gotoSearchResultPage)
+                    SearchCategoryView(searchText: $searchText, gotoSearchResultPage: $gotoSearchResultPage)
                 }
             }.padding()
         }

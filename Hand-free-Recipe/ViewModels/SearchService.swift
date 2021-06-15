@@ -1,5 +1,5 @@
 //
-//  SearchViewModel.swift
+//  SearchService.swift
 //  Hand-free-Recipe
 //
 //  Created by Guyleaf on 2021/6/3.
@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-class SearchViewModel: ObservableObject {
+class SearchService: ObservableObject {
     @Published var keyword: String = ""
     @Published var results = [String]()
 
@@ -29,8 +29,8 @@ class SearchViewModel: ObservableObject {
     }
 }
 
-extension SearchViewModel {
-    func searchByCategory(keyword: String) -> AnyPublisher<[Category], Error> {
-        
-    }
+extension SearchService {
+//    func searchByCategory(keyword: String) -> AnyPublisher<[Category], Error> {
+//        
+//    }
 }

@@ -8,23 +8,17 @@
 import SwiftUI
 
 struct SearchResultView: View {
-    @ObservedObject var viewModel: SearchViewModel
-
-    init(viewModel: SearchViewModel, keyword: String) {
-        self.viewModel = viewModel
-    }
+    let keyword: String
 
     var body: some View {
         ScrollView {
-            Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+            Text("Hello, World!")
         }
     }
 }
 
 struct SearchResultView_Previews: PreviewProvider {
-    @StateObject static var viewModel = SearchViewModel()
-    
     static var previews: some View {
-        SearchResultView(viewModel: viewModel, keyword: "")
+        SearchResultView(keyword: "")
     }
 }

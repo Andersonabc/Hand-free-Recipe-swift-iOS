@@ -19,7 +19,7 @@ struct CategoryCardView: View {
             .clipShape(RoundedRectangle(cornerRadius: 10.0))
             .brightness(-0.02)
             .shadow(radius: 5)
-            .overlay(Text(categoryName).font(.headline).bold().foregroundColor(.white).padding(8), alignment: .bottomLeading)
+            .overlay(Text(categoryName).font(.headline).bold().foregroundColor(.white).shadow(color: .gray, radius: 10, x: 2, y: 3).padding(8), alignment: .bottomLeading)
         
     }
 }

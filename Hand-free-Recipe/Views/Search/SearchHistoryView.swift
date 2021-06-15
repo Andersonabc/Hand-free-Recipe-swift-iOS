@@ -11,10 +11,10 @@ struct SearchHistoryView: View {
     @FetchRequest(sortDescriptors: [NSSortDescriptor(key: "timestamp", ascending: false)])
     private var records: FetchedResults<SearchHistory>
 
-    @ObservedObject var viewModel: SearchViewModel
-
     @Binding var searchText: String
     @Binding var gotoSearchResultPage: Bool
+
+    let searchHistoryHandler = SearchHistoryHandler.shared
 
     var body: some View {
         ScrollView([.vertical], showsIndicators: false) {
@@ -27,7 +27,7 @@ struct SearchHistoryView: View {
                         History(text: record.keyword!)
                     })
                     Button(action: {
-                        viewModel.delete(record: record)
+                        searchHistoryHandler.deleteHistory(record: record)
                     }, label: {
                         Image(systemName: "trash.slash")
                             .imageScale(.large)
@@ -57,10 +57,8 @@ struct History: View {
 }
 
 struct SearchHistoryView_Previews: PreviewProvider {
-    @StateObject static var viewModel = SearchViewModel()
-
     static var previews: some View {
-        SearchHistoryView(viewModel: viewModel, searchText: .constant(""), gotoSearchResultPage: .constant(false))
+        SearchHistoryView(searchText: .constant(""), gotoSearchResultPage: .constant(false))
             .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
     }
 }

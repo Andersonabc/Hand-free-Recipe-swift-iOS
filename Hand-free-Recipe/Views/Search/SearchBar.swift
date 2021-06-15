@@ -7,16 +7,6 @@
 
 import SwiftUI
 
-extension AnyTransition {
-    static var moveAndFade: AnyTransition {
-        let insertion = AnyTransition.move(edge: .trailing)
-            .combined(with: .opacity)
-        let removal = AnyTransition.scale
-            .combined(with: .opacity)
-        return .asymmetric(insertion: insertion, removal: removal)
-    }
-}
-
 struct SearchBar: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
@@ -27,6 +17,7 @@ struct SearchBar: View {
 
     let searchedText: String
     let inSearchResultPage: Bool
+    let searchHistoryHandler = SearchHistoryHandler.shared
 
     var body: some View {
         HStack {
@@ -66,6 +57,7 @@ struct SearchBar: View {
                         if text != searchedText {
                             searchText = text
                             gotoSearchResultPage = true
+                            searchHistoryHandler.addHistory(keyword: text)
                         }
                         enterSearchStatus = false
                     }

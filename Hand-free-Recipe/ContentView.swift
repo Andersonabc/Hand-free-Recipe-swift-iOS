@@ -9,7 +9,8 @@ import SwiftUI
 import CoreData
 
 struct ContentView: View {
-    
+    @StateObject var searchService: SearchService = SearchService()
+
     init() {
         UITabBar.appearance().unselectedItemTintColor = UIColor(Color.primary)
     }
@@ -26,6 +27,7 @@ struct ContentView: View {
             }.tag(1)
             NavigationView {
                 SearchView(searchedText: "", inSearchResultPage: false)
+                    .environmentObject(searchService)
             }.navigationTitle("Search")
             .tabItem {
                 Image(systemName: "magnifyingglass")

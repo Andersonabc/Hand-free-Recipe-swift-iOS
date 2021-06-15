@@ -9,8 +9,9 @@ import Foundation
 import CoreData
 
 class SearchHistoryHandler {
+    static let shared = SearchHistoryHandler()
     private let context = PersistenceController.shared.container.viewContext
-    
+
     init() {
         context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
     }

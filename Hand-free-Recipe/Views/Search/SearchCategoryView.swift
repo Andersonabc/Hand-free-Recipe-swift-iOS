@@ -8,39 +8,54 @@
 import SwiftUI
 
 struct SearchCategoryView: View {
-    let images: [String] = ["pasta", "fish", "hamburger", "spaghetti"]
-    let names: [String] = ["義式料理", "魚類料理", "美式速食", "義大利麵"]
+    @StateObject private var categoryLoader: CategoryLoader = CategoryLoader(db_topic: "category")
+    @State private var isLoading: Bool = false
 
     @Binding var searchText: String
     @Binding var gotoSearchResultPage: Bool
-    
-    @State private var tap: Bool = false;
-    
-    var body: some View {
-        ScrollView([.vertical], showsIndicators: false) {
-            HStack {
-                Text("食譜類別").font(.title2).bold()
-                Spacer()
-            }
 
-            LazyVGrid(columns: [GridItem(), GridItem()]) {
-                ForEach(names.indices) { index in
-                    Button(action: {
-                        searchText = names[index]
-                        gotoSearchResultPage = true
-                    }, label: {
-                        CategoryCardView(categoryImage: images[index], categoryName: names[index])
-                    })
-                    .animation(.linear(duration: 0.15))
+    var body: some View {
+        ZStack {
+            if self.isLoading {
+                ActivityIndicator(style: .circle(width: 5, duration: 1, size: 90))
+                    .foregroundColor(.primary)
+            }
+            else {
+                ScrollView([.vertical], showsIndicators: false) {
+                    HStack {
+                        Text("食譜類別").font(.title2).bold()
+                        Spacer()
+                    }
+
+                    LazyVGrid(columns: [GridItem(), GridItem()]) {
+                        ForEach(self.categoryLoader.categories) { category in
+                            Button(action: {
+                                searchText = category.name
+                                gotoSearchResultPage = true
+                            }, label: {
+                                CategoryCardView(categoryImage: category.image, categoryName: category.name)
+                            })
+                            .animation(.linear(duration: 0.15))
+                        }
+                    }
+                    .animation(.interactiveSpring())
                 }
             }
-            .animation(.interactiveSpring())
         }
+        .onAppear(perform: {
+            categoryLoader.load()
+
+            isLoading = true
+//            if self.categoryLoader.dataIsFetched {
+//                self.isLoading = false;
+//            }
+        })
     }
 }
 
 struct SearchCategoryView_Previews: PreviewProvider {
     static var previews: some View {
         SearchCategoryView(searchText: .constant(""), gotoSearchResultPage: .constant(false))
+            .preferredColorScheme(.dark)
     }
 }

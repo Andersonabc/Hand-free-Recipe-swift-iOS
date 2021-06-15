@@ -14,7 +14,7 @@ struct HistoryView: View {
                                                    ingredients: generateFakeIngredients(),
                                                    steps: generateFakeSteps(),
                                                    estimatedTime: Int.random(in: 2400..<190000)) }
-    
+
     var body: some View {
         ScrollView(.vertical,
                    showsIndicators: true) {
@@ -52,7 +52,7 @@ struct HistoryView: View {
                 }
                 ScrollableStackHistoryRecipeView(recipes: BLD,
                                                  showMore: false,
-                                                 isUnlimited: false)
+                                                isUnlimited: false)
             }
             
         }

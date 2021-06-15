@@ -22,35 +22,30 @@ struct HeartView: View {
     }
     
     var body: some View {
-        NavigationView {
-            VStack(alignment: .leading,
-                   spacing: 0) {
-                SlideTabView(selection: $selectedIndex,
-                             tabs: ["歷史紀錄", "我的最愛"])
-                    .padding(.top, -50)
-                
-                ScrollView(.horizontal,
-                           showsIndicators: false) {
-                    TabView(selection: $selectedIndex.animation()) {
-                        HistoryView()
-                        .tag(0)
-                        FavoriteView()
-                        .tag(1)
-                    }
-                    .animation(.spring())
-                    .frame(width: UIScreen.main.bounds.width)
-                    .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-                }
+        VStack(alignment: .leading,
+               spacing: 0) {
+            SlideTabView(selection: $selectedIndex,
+                         tabs: ["歷史紀錄", "我的最愛"])
+                .padding(.top, -50)
+            
+            TabView(selection: $selectedIndex.animation()) {
+                HistoryView()
+                .tag(0)
+                FavoriteView()
+                .tag(1)
             }
-            .background(Color("MainView"))
-            .navigationBarHidden(true)
+            .animation(.spring())
+            .frame(width: UIScreen.main.bounds.width)
+            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
         }
+        .background(Color("MainView"))
+        .navigationBarHidden(true)
     }
 }
 
 struct HeartView_Previews: PreviewProvider {
     static var previews: some View {
         HeartView()
-            .preferredColorScheme(.light)
+            .preferredColorScheme(.dark)
     }
 }

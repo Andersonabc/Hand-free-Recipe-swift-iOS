@@ -10,12 +10,6 @@ import SwiftUI
 struct SlideTabView: View {
     
     @Binding var selection: Int
-    @State private var tabIndex = 0 {
-        didSet {
-            selection = tabIndex
-        }
-    }
-    @State var barOffset: CGFloat = 0
     
     let tabs: [String]
     let tabColor: Color
@@ -31,8 +25,8 @@ struct SlideTabView: View {
          tabColor: Color = Color("ToolBar"),
          tabHeight: CGFloat = 65,
          animation: Animation = .spring(),
-         activeAccent: Color = Color("ActiveAccent"),
-         inactiveAccent: Color = Color("ActiveAccent").opacity(0.7),
+         activeAccent: Color = Color("Accent"),
+         inactiveAccent: Color = Color("Accent").opacity(0.7),
          barColor: Color = Color("SelectionBar"),
          barHeight: CGFloat = 2) {
         self._selection = selection
@@ -45,13 +39,13 @@ struct SlideTabView: View {
         self.barColor = barColor
         self.barHeight = barHeight
     }
-    
+
     private func isSelected(tab: String) -> Bool {
-        return tabs[tabIndex] == tab
+        return tabs[selection] == tab
     }
     
     private func barXOffset(from totalWidth: CGFloat) -> CGFloat {
-        return self.barWidth(from: totalWidth) * CGFloat(tabIndex)
+        return self.barWidth(from: totalWidth) * CGFloat(selection)
     }
     
     private func barWidth(from totalWidth: CGFloat) -> CGFloat {
@@ -64,8 +58,7 @@ struct SlideTabView: View {
             HStack(spacing: 0) {
                 ForEach(self.tabs, id:\.self) { tab in
                     Button(action: {
-                        let selection = self.tabs.firstIndex(of: tab) ?? 0
-                        self.tabIndex = selection
+                        self.selection = self.tabs.firstIndex(of: tab) ?? 0
                     }) {
                         HStack {
                             Spacer()
@@ -95,8 +88,8 @@ struct SlideTabView: View {
                                height: self.barHeight)
                         .offset(x: self.barXOffset(from: geometry.size.width),
                                 y: -1 * self.barHeight)
-                        .animation(.spring(), value: tabIndex)
-                    
+                        .animation(.spring(), value: selection)
+
                     Rectangle()
                         .fill(Color.clear)
                         .frame(width: self.barWidth(from: geometry.size.width),
@@ -106,7 +99,9 @@ struct SlideTabView: View {
             .frame(height: 0)
             .fixedSize(horizontal: false, vertical: true)
         }
+        
     }
+    
 }
 
 struct SlideTabView_Previews: PreviewProvider {

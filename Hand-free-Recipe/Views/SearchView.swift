@@ -82,6 +82,7 @@ struct SearchView: View {
                     }
                 }.padding(0)
                 .navigationBarHidden(true)
+                .background(Color("MainView"))
             }
 }
 

@@ -59,7 +59,7 @@ struct HomeView: View {
         }
         .padding()
         .navigationBarHidden(true)
-        .background(Color(red: 36/255, green: 37/255, blue: 38/255))
+        .background(Color("MainView"))
     }
 }
 

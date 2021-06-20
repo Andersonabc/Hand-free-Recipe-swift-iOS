@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct HomeView: View {
-    let BLD: [Recipe] = (0...10).map { _ in Recipe(name: "早餐", coverImage: "breakfast", ingredients: generateFakeIngredients(), steps: generateFakeSteps(), estimatedTime: Int.random(in: 2400..<190000)) }
-    let new: [Recipe] =  (0...50).map { _ in Recipe(name: "早餐", coverImage: "example_food", ingredients: generateFakeIngredients(), steps: generateFakeSteps(), estimatedTime: Int.random(in: 2400..<190000)) }
+    let BLD: [Recipe] = (0...10).map { _ in Recipe(name: "早餐", coverImage: "breakfast", ingredients: generateFakeIngredients(), steps: generateFakeSteps(), estimatedTime: Int.random(in: 2400..<190000), yields: 1) }
+    let new: [Recipe] =  (0...50).map { _ in Recipe(name: "早餐", coverImage: "example_food", ingredients: generateFakeIngredients(), steps: generateFakeSteps(), estimatedTime: Int.random(in: 2400..<190000), yields: 1) }
     
     var body: some View {
         ScrollView([.vertical], showsIndicators: false) {
@@ -18,6 +18,7 @@ struct HomeView: View {
                     Text("早餐推薦")
                         .font(.largeTitle)
                         .bold()
+                        .padding()
                     Spacer()
                     // Optional: more recipes
                 }.padding(.bottom, -5)
@@ -28,6 +29,7 @@ struct HomeView: View {
                     Text("午餐推薦")
                         .font(.largeTitle)
                         .bold()
+                        .padding()
                     Spacer()
                     // Optional: more recipes
                 }.padding(.bottom, -5)
@@ -38,6 +40,7 @@ struct HomeView: View {
                     Text("晚餐推薦")
                         .font(.largeTitle)
                         .bold()
+                        .padding()
                     Spacer()
                     // Optional: more recipes
                 }.padding(.bottom, -5)
@@ -48,6 +51,7 @@ struct HomeView: View {
                     Text("最新推薦")
                         .font(.largeTitle)
                         .bold()
+                        .padding()
                     Spacer()
                 }
                 LazyVGrid(columns: [GridItem(spacing: 10), GridItem()], alignment: .center, spacing: 15) {
@@ -55,9 +59,9 @@ struct HomeView: View {
                         RecipeCardView(recipe: new[index])
                     }
                 }
+                .padding()
             }
         }
-        .padding()
         .navigationBarHidden(true)
         .background(Color("MainView"))
     }

@@ -8,59 +8,60 @@
 import SwiftUI
 
 struct SearchBar: View {
-    @Binding var text: String
-    @Binding var isEditing: Bool
-    @Binding var gotoSearchPage: Bool
-    @Binding var hist: History
+    @ObservedObject var searchService: SearchService
+    @Binding var searchText: String
+    @Binding var gotoSearchResultPage: Bool
+    @State var text: String = ""
+
+    let searchedText: String
+    let searchHistoryHandler: SearchHistoryHandler
+
     var body: some View {
         HStack {
-            if isEditing {
-                Button(action: {
-                    self.isEditing = false
-                    self.text = ""
-                    self.gotoSearchPage = false
-                }) {
-                    Image(systemName: "arrow.turn.up.left").resizable()
-                        .frame(width: 20, height: 20)
-                }
-                .padding(.leading, 10).foregroundColor(.white)
-            }
-            TextField("Search ...", text: $text, onCommit: {
-                self.gotoSearchPage = true
-                hist.appendHist(at: SearchRecord(name: text))
-            })
-                .padding(7)
-                .padding(.horizontal, 25)
-                .background(Color(.systemGray6))
-                .cornerRadius(8).overlay(
-                    HStack {
-                        Image(systemName: "magnifyingglass")
-                            .foregroundColor(.gray)
-                            .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                            .padding(.leading, 8)
-                        if isEditing {
-                            Button(action: {
-                                self.text = ""
-                                self.gotoSearchPage = false
-                            }) {
-                                Image(systemName: "multiply.circle.fill")
-                                    .foregroundColor(.gray)
-                                    .padding(.trailing, 8)
-                            }
-                        }
+            Image(systemName: "magnifyingglass")
+                .font(Font.system(size: 18, weight: .light))
+                .foregroundColor(.primary)
+                .padding(.leading, 10)
+            ZStack(alignment: .leading) {
+                if searchService.keyword.isEmpty {
+                    if !searchedText.isEmpty {
+                        Text(searchedText).foregroundColor(.primary)
                     }
-                )
-                .padding(.horizontal, 10)
-                .onTapGesture {
-                    self.isEditing = true
-                    self.gotoSearchPage = false
+                    else {
+                        Text("輸入食譜類別、食譜名稱...").foregroundColor(Color.init(.sRGB, white: 1, opacity: 0.6))
+                    }
                 }
+                TextField("", text: $searchService.keyword) { _ in
+                    
+                } onCommit: {
+                    if searchService.keyword != searchedText {
+                        searchText = searchService.keyword
+                        gotoSearchResultPage = true
+                        searchHistoryHandler.addHistory(keyword: searchService.keyword)
+                    }
+                }
+                .contentShape(Rectangle())
+            }
         }
+        .frame(height: 45)
+        .background(Color(.sRGB, red: 61/255, green: 61/255, blue: 61/255, opacity: 0.6))
+        .clipShape(RoundedRectangle(cornerRadius: 18))
+        .overlay(
+            RoundedRectangle(cornerRadius: 18)
+                .stroke(Color.secondary, lineWidth: 1)
+        )
+        .onAppear(perform: {
+            DispatchQueue.main.async {
+                searchService.keyword = searchedText
+            }
+        })
     }
 }
 
 //struct SearchBar_Previews: PreviewProvider {
 //    static var previews: some View {
-//        SearchBar()
+//        NavigationView {
+//        }
+//        .preferredColorScheme(.dark)
 //    }
 //}

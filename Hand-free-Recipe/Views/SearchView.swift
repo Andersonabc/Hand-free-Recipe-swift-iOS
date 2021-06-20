@@ -7,87 +7,67 @@
 
 import SwiftUI
 
-struct SearchView: View {
-    @State var gotoSearchPage: Bool = false
-    @State var hist = History()
-    @State private var searchText = ""
-    @State var isEditing: Bool = false
-    private var Items = [ SearchRecord(name: "Chicken and waffles"),
-                          SearchRecord(name: "Sweet potato casserole"),
-                          SearchRecord(name: "Meatloaf"),
-                          SearchRecord(name: "Taco"),
-                          SearchRecord(name: "fish and chips")
-                                ]
-    var body: some View {
-                VStack{
-                    if(isEditing){
-                        VStack{
-                            HStack {
-                                Text("Let's search what you love!")
-                                    .font(.system(size: 30, weight: .light, design: .rounded))
-                            }.padding(.top, 10)
-                            SearchBar(text: $searchText, isEditing: $isEditing, gotoSearchPage:$gotoSearchPage, hist: $hist).padding(0)
-                        }
-                        if(searchText == ""){
-                            List (self.hist.data) { (item) in
-                                    HStack {
-                                        Image(systemName: "arrow.counterclockwise")
-                                        Button(action: {
-                                            self.searchText = item.name
-                                            self.gotoSearchPage = true
-                                        }, label: {
-                                            Text(item.name)
-                                        })
-                                        Spacer()
-                                        Button(action: {
-                                            self.gotoSearchPage = false
-                                            self.hist.deleteHist(at: item)
-                                        }, label: {
-                                            Image(systemName: "xmark.circle").foregroundColor(Color.red)
-                                        }).buttonStyle(BorderlessButtonStyle())
-                                    }
-                                }
-                        }else{
-                            List (self.Items.filter({ searchText.isEmpty ? true : $0.name.lowercased().contains(searchText.lowercased()) })) { (item) in
-                                    HStack {
-                                        Button(action: {
-                                            self.gotoSearchPage = false
-                                        }, label: {
-                                            Text(item.name)
-                                        })
-                                    }
-                                }
-                        }
-      
-                    }else{
-                        VStack(alignment: .center){
-                            VStack{
-                                HStack {
-                                    Text("Let's search what you love!")
-                                        .font(.system(size: 30, weight: .light, design: .rounded))
-                                }.padding(.top, -5)
-                                SearchBar(text: $searchText, isEditing: $isEditing, gotoSearchPage:$gotoSearchPage, hist: $hist).padding(.top, 10)
-                            }
-                            Text("Popular searches").padding(10).frame(maxWidth: .infinity, alignment: .leading).font(.title)
-                            HStack{
-                                Image("fish").resizable().frame(width: 180, height: 100)
-                                Image("hamburger").resizable().frame(width: 180, height: 100)
-                            }.padding(.top, 10)
-                            HStack{
-                                Image("pasta").resizable().frame(width: 180, height: 100)
-                                Image("spaghetti").resizable().frame(width: 180, height: 100)
-                            }
-                        }.padding(.top, -360)
+extension UIApplication {
+    func endEditing() {
+        sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+}
 
+struct SearchView: View {
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+
+    @State var searchText = ""
+    let searchedText: String
+
+    // independant value
+    @State var gotoSearchResultPage: Bool = false
+
+    // shared by value between search pages
+    let inSearchResultPage: Bool
+
+    var body: some View {
+        VStack(spacing: 0) {
+            // go to search result page
+            NavigationLink(destination: SearchView(searchedText: searchText, inSearchResultPage: true), isActive: $gotoSearchResultPage) {
+                    EmptyView()
+                }
+
+            HStack {
+                if inSearchResultPage {
+                    Button(action: {
+                        presentationMode.wrappedValue.dismiss()
+                    }) {
+                        Image(systemName: "chevron.left")
+                            .font(.title2)
                     }
-                }.padding(0)
-                .navigationBarHidden(true)
-                .background(Color("MainView"))
+                    .padding(.horizontal)
+                }
+
+                NavigationLink(destination: SearchModeView(gotoSearchResultPage: $gotoSearchResultPage, searchText: $searchText, inSearchResultPage: inSearchResultPage, searchedText: searchedText)) {
+                    SearchBar(searchService: SearchService(), searchText: .constant(""), gotoSearchResultPage: .constant(false), searchedText: searchedText, searchHistoryHandler: SearchHistoryHandler.shared)
+                        .padding([.vertical, inSearchResultPage ? .trailing : .horizontal])
+                }
             }
+
+            VStack {
+                if inSearchResultPage {
+                    SearchResultView(keyword: searchedText)
+                }
+                else {
+                    SearchCategoryView(searchText: $searchText, gotoSearchResultPage: $gotoSearchResultPage)
+                }
+            }.padding()
+            .frame(maxHeight: .infinity)
+        }
+        .navigationBarHidden(true)
+        .background(Color("MainView"))
+    }
 }
 
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
-        SearchView().preferredColorScheme(.light)
+        NavigationView {
+            SearchView(searchedText: "", inSearchResultPage: false)
+        }.preferredColorScheme(.dark)
     }
 }

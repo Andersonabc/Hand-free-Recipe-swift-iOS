@@ -27,13 +27,7 @@ struct RecipeCardView: View {
                     Text(recipe.name)
                         .font(.title)
                         .fontWeight(.medium)
-                        .foregroundColor(.secondary)
-    //                    .foregroundColor(.primary)
-    //                    .foregroundColor(Color(.sRGB,
-    //                                           red: 74/255,
-    //                                           green: 74/255,
-    //                                           blue: 74/255))
-                        
+                        .accentColor(Color("Accent"))
                         .lineLimit(1)
 
                     Spacer(minLength: 35) // Need to fix...
@@ -42,7 +36,7 @@ struct RecipeCardView: View {
                 .padding()
 
             }
-            .background(Color(.sRGB, red: 228/255, green: 230/255, blue: 235/255, opacity: 0.1))
+            .background(Color("SecondaryView"))
             .frame(maxWidth: 300, maxHeight: 370)
             .cornerRadius(10)
             .shadow(radius: 10)
@@ -72,5 +66,6 @@ struct RecipeCardView: View {
 struct RecipeCardView_Previews: PreviewProvider {
     static var previews: some View {
         RecipeCardView(recipe: Recipe(name: "早餐", coverImage: "breakfast", ingredients: generateFakeIngredients(), steps: generateFakeSteps(), estimatedTime: 2000))
+            .preferredColorScheme(.light)
     }
 }

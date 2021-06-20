@@ -35,3 +35,8 @@ func generateFakeSteps() -> [RecipeStep] {
 
     return tmp
 }
+
+//func generateFakeHistory() -> [SearchRecord] {
+//    
+//}
+

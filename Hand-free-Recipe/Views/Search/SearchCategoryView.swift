@@ -9,14 +9,15 @@ import SwiftUI
 
 struct SearchCategoryView: View {
     @StateObject private var categoryLoader: CategoryLoader = CategoryLoader(db_topic: "category")
-    @State private var isLoading: Bool = false
 
+    @State var isLoading: Bool = false
+    
     @Binding var searchText: String
     @Binding var gotoSearchResultPage: Bool
-
+    
     var body: some View {
-        ZStack {
-            if self.isLoading {
+        Group {
+            if isLoading {
                 ActivityIndicator(style: .circle(width: 5, duration: 1, size: 90))
                     .foregroundColor(.primary)
             }
@@ -33,7 +34,7 @@ struct SearchCategoryView: View {
                                 searchText = category.name
                                 gotoSearchResultPage = true
                             }, label: {
-                                CategoryCardView(categoryImage: category.image, categoryName: category.name)
+                                CategoryCardView(categoryName: category.name, image: categoryLoader.images[category.categoryId] ?? UIImage())
                             })
                             .animation(.linear(duration: 0.15))
                         }
@@ -42,13 +43,21 @@ struct SearchCategoryView: View {
                 }
             }
         }
+        .onReceive(categoryLoader.objectWillChange, perform: { _ in
+            if categoryLoader.dataIsFetched {
+                DispatchQueue.main.async {
+                    isLoading = false
+                }
+            }
+        })
         .onAppear(perform: {
             categoryLoader.load()
 
-            isLoading = true
-//            if self.categoryLoader.dataIsFetched {
-//                self.isLoading = false;
-//            }
+            if !categoryLoader.dataIsFetched {
+                DispatchQueue.main.async {
+                    isLoading = true
+                }
+            }
         })
     }
 }

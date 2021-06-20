@@ -13,13 +13,14 @@ extension UIApplication {
     }
 }
 
-struct SearchView: View {    
+struct SearchView: View {
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+
     @State var searchText = ""
     let searchedText: String
 
     // independant value
     @State var gotoSearchResultPage: Bool = false
-    @State var enterSearchStatus: Bool = false
 
     // shared by value between search pages
     let inSearchResultPage: Bool
@@ -31,22 +32,32 @@ struct SearchView: View {
                     EmptyView()
                 }
 
-            SearchBar(enterSearchStatus: $enterSearchStatus, searchText: $searchText, gotoSearchResultPage: $gotoSearchResultPage, searchedText: searchedText, inSearchResultPage: inSearchResultPage)
+            HStack {
+                if inSearchResultPage {
+                    Button(action: {
+                        presentationMode.wrappedValue.dismiss()
+                    }) {
+                        Image(systemName: "chevron.left")
+                            .font(.title2)
+                    }
+                    .padding(.horizontal)
+                }
+
+                NavigationLink(destination: SearchModeView(gotoSearchResultPage: $gotoSearchResultPage, searchText: $searchText, inSearchResultPage: inSearchResultPage, searchedText: searchedText)) {
+                    SearchBar(searchService: SearchService(), searchText: .constant(""), gotoSearchResultPage: .constant(false), searchedText: searchedText, searchHistoryHandler: SearchHistoryHandler.shared)
+                        .padding([.vertical, inSearchResultPage ? .trailing : .horizontal])
+                }
+            }
 
             VStack {
-                if enterSearchStatus {
-                    SearchHistoryView(searchText: $searchText, gotoSearchResultPage: $gotoSearchResultPage)
-                        .onTapGesture {
-                            UIApplication.shared.endEditing()
-                        }
-                }
-                else if inSearchResultPage {
+                if inSearchResultPage {
                     SearchResultView(keyword: searchedText)
                 }
                 else {
                     SearchCategoryView(searchText: $searchText, gotoSearchResultPage: $gotoSearchResultPage)
                 }
             }.padding()
+            .frame(maxHeight: .infinity)
         }
         .navigationBarHidden(true)
     }

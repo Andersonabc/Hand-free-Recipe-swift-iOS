@@ -13,7 +13,6 @@ struct ActivityIndicator: View {
     
     var body: some View {
         VStack {
-            Spacer()
             Group {
                 switch style {
                 case .circle(let width, let duration, let size):
@@ -21,10 +20,11 @@ struct ActivityIndicator: View {
                 }
             }
             .onAppear {
-                self.isLoading = true
+                DispatchQueue.main.async {
+                    self.isLoading = true
+                }
             }
             .aspectRatio(contentMode: .fit)
-            Spacer()
         }
     }
 }

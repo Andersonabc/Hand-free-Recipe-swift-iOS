@@ -10,6 +10,7 @@ import SwiftUI
 @main
 struct Hand_free_RecipeApp: App {
     let persistenceController = PersistenceController.shared
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
 
     var body: some Scene {
         WindowGroup {

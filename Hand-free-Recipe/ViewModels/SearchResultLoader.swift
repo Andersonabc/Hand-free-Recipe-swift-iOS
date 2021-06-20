@@ -9,4 +9,5 @@ import Foundation
 
 class SearchResultLoader: ObservableObject {
     
+    private let keyword: String
 }

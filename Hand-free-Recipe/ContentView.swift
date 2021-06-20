@@ -35,7 +35,7 @@ struct ContentView: View {
                     .font(.largeTitle)
             }.tag(2)
             NavigationView {
-                HistoryView()
+                HeartView()
             }.navigationTitle("Favorite/History")
             .tabItem {
                 Image(systemName: "heart")

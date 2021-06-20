@@ -9,7 +9,7 @@ import SwiftUI
 
 // TODO: send recipes
 struct RecipeView: View {
-    @Environment(\.colorScheme) var colorScheme
+//    @Environment(\.colorScheme) var colorScheme
 
     @State var isLike: Bool = false;
     @State var isFullScreenImage: Bool = false;
@@ -55,7 +55,7 @@ struct RecipeView: View {
                         NavigationLink(destination: RecipePresentationView(recipeName: example_recipe.name, steps: example_recipe.steps)){
                             Text("卡片模式")
                                 .font(.title2)
-                                .foregroundColor(colorScheme == .dark ? .white : .black)
+                                .accentColor(Color("Accent"))
                                 .padding()
                                 .border(Color.purple)
                                 .cornerRadius(3)
@@ -81,7 +81,7 @@ struct RecipeView: View {
                 }
                 .padding()
             }
-            .background(Color(red: 36/255, green: 37/255, blue: 38/255))
+            .background(Color("SecondaryView"))
             .padding(.bottom, 5)
 
             HStack {
@@ -94,6 +94,7 @@ struct RecipeView: View {
             ScrollableStackRecipeView(recipes: (0...10).map { _ in Recipe(name: "早餐", coverImage: "breakfast", ingredients: generateFakeIngredients(), steps: generateFakeSteps(), estimatedTime: Int.random(in: 2400..<190000)) }, showMore: false, isUnlimited: false)
                 .padding(.bottom, 15)
         }
+        .background(Color("MainView"))
         .toolbar(content: {
                     ToolBarContent(isLike: $isLike)})
         .edgesIgnoringSafeArea(.top)
@@ -150,7 +151,7 @@ struct RecipeView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             RecipeView()
-                .preferredColorScheme(.dark)
+                .preferredColorScheme(.light)
         }
         .navigationViewStyle(StackNavigationViewStyle())
 

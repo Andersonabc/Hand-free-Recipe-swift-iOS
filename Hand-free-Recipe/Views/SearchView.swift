@@ -51,12 +51,12 @@ struct SearchView: View {
 
             VStack {
                 if inSearchResultPage {
-                    SearchResultView(keyword: searchedText)
+                    SearchResultView(keyword: searchedText, size: 10)
                 }
                 else {
                     SearchCategoryView(searchText: $searchText, gotoSearchResultPage: $gotoSearchResultPage)
                 }
-            }.padding()
+            }.padding(.horizontal)
             .frame(maxHeight: .infinity)
         }
         .navigationBarHidden(true)

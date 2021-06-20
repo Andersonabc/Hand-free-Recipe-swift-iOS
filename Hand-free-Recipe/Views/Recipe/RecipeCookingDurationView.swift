@@ -8,16 +8,14 @@
 import SwiftUI
 
 struct RecipeCookingDurationView: View {
-    var estimatedTime: Int?
+    var estimatedTime: Int
 
-    let durationList = ["天", "小時", "分鐘", "秒"]
+    let durationList = ["day", "hour", "min"]
 
     func calculatDuration() -> [Int]? {
-        guard var duration = estimatedTime else { return nil }
+        var duration = estimatedTime
 
         var tmp = [Int]()
-        tmp.append(duration % 60)
-        duration /= 60
         tmp.append(duration % 60)
         duration /= 60
         tmp.append(duration % 24)
@@ -68,6 +66,6 @@ struct RecipeCookingDurationView: View {
 
 struct RecipeCookingDurationView_Previews: PreviewProvider {
     static var previews: some View {
-        RecipeCookingDurationView()
+        RecipeCookingDurationView(estimatedTime: 35)
     }
 }

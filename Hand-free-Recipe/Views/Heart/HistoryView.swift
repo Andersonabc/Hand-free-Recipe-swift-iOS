@@ -13,7 +13,7 @@ struct HistoryView: View {
                                                    coverImage: "breakfast",
                                                    ingredients: generateFakeIngredients(),
                                                    steps: generateFakeSteps(),
-                                                   estimatedTime: Int.random(in: 2400..<190000)) }
+                                                   estimatedTime: Int.random(in: 2400..<190000), yields: 1) }
 
     var body: some View {
         ScrollView(.vertical,

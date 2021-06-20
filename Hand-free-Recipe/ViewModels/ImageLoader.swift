@@ -11,7 +11,7 @@ import Combine
 
 class ImageLoader: ObservableObject {
     @Published var image: UIImage?
-    var dataIsFetched: Bool {
+    private var dataIsFetched: Bool {
         get {
             return self.image != nil
         }
@@ -22,16 +22,17 @@ class ImageLoader: ObservableObject {
 
     init(url: URL) {
         self.url = url
-        cancellable = URLSession.shared.dataTaskPublisher(for: url)
-            .map { UIImage(data: $0.data) }
-            .replaceError(with: nil)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] in self?.image = $0 }
     }
     
     func load() {
         if self.dataIsFetched {
             return
         }
+
+        cancellable = URLSession.shared.dataTaskPublisher(for: url)
+            .map { UIImage(data: $0.data) }
+            .replaceError(with: nil)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in self?.image = $0 }
     }
 }

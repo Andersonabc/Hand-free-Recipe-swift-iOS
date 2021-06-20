@@ -65,7 +65,7 @@ struct RecipeCardView: View {
 
 struct RecipeCardView_Previews: PreviewProvider {
     static var previews: some View {
-        RecipeCardView(recipe: Recipe(name: "早餐", coverImage: "breakfast", ingredients: generateFakeIngredients(), steps: generateFakeSteps(), estimatedTime: 2000))
+        RecipeCardView(recipe: Recipe(name: "早餐", coverImage: "breakfast", ingredients: generateFakeIngredients(), steps: generateFakeSteps(), estimatedTime: 2000, yields: 1))
             .preferredColorScheme(.light)
     }
 }

@@ -23,27 +23,29 @@ struct SearchResultView: View {
                 SearchResultCardView(recipe: recipe)
             }
 
-            if resultLoader.results.count == (page+1) * size {
-                Button(action: {
-                    page += 1
-                    resultLoader.next()
-                }, label: {
-                    Text("More...?")
-                        .foregroundColor(.primary)
-                        
-                        .font(.title2)
-                        .frame(width: 200, height: 40)
-                        .clipShape(RoundedRectangle(cornerRadius: 18))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 18)
-                                .stroke(Color.secondary, lineWidth: 1)
-                        )
-                        .padding()
-                })
-            }
-            else {
-                ActivityIndicator(style: .circle(width: 3, duration: 0.8, size: 40))
-                    .padding(.vertical, 10)
+            if !resultLoader.isLastPage {
+                if resultLoader.results.count == (page+1) * size {
+                    Button(action: {
+                        page += 1
+                        resultLoader.next()
+                    }, label: {
+                        Text("More...?")
+                            .foregroundColor(.primary)
+                            
+                            .font(.title2)
+                            .frame(width: 200, height: 40)
+                            .clipShape(RoundedRectangle(cornerRadius: 18))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 18)
+                                    .stroke(Color.secondary, lineWidth: 1)
+                            )
+                            .padding()
+                    })
+                }
+                else {
+                    ActivityIndicator(style: .circle(width: 3, duration: 0.8, size: 40))
+                        .padding(.vertical, 10)
+                }
             }
         }
         .onAppear {

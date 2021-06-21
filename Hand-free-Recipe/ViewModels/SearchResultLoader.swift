@@ -10,17 +10,23 @@ import FirebaseFirestore
 
 class SearchResultLoader: ObservableObject {
     @Published var results = [Recipe]()
-    
+    var isLastPage: Bool {
+        self.lastCount != -1 && self.lastCount < self.size
+    }
+
     private let keyword: String
     private let size: Int
     private let db = Firestore.firestore()
     
     private var lastSnapshot: QueryDocumentSnapshot?
     private var id: Int?
+    
+    private var lastCount: Int
 
     init(keyword: String, size: Int) {
         self.keyword = keyword
         self.size = size
+        self.lastCount = -1
     }
 
     func load() {
@@ -62,6 +68,8 @@ class SearchResultLoader: ObservableObject {
             
             self.lastSnapshot = documents.last
 
+            self.lastCount = documents.count
+            
             let data = documents.compactMap { snapshot -> Recipe in
                 self.createNewRecipe(data: snapshot.data())
             }
@@ -84,6 +92,8 @@ class SearchResultLoader: ObservableObject {
             
             self.lastSnapshot = documents.last
 
+            self.lastCount = documents.count
+            
             let data = documents.compactMap { snapshot -> Recipe in
                 self.createNewRecipe(data: snapshot.data())
             }

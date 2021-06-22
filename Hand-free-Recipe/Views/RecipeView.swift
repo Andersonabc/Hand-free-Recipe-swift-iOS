@@ -109,7 +109,7 @@ struct RecipeView: View {
         .background(Color("MainView"))
         .toolbar(content: {
                     ToolBarContent(isLike: $isLike)})
-        .edgesIgnoringSafeArea(.vertical)
+        .edgesIgnoringSafeArea(.top)
         .onAppear {
             imageLoader.load()
             moreRecipeLoader.load()

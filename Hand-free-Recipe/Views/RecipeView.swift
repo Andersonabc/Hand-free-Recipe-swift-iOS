@@ -105,6 +105,7 @@ struct RecipeView: View {
                     .padding(.bottom, 10)
             }
         }
+        .navigationBarHidden(false)
         .background(Color("MainView"))
         .toolbar(content: {
                     ToolBarContent(isLike: $isLike)})

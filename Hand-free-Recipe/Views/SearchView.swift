@@ -60,7 +60,7 @@ struct SearchView: View {
             .frame(maxHeight: .infinity)
         }
         .navigationBarHidden(true)
-        .background(Color("MainView"))
+        .background(Color("MainView").ignoresSafeArea())
     }
 }
 

@@ -39,6 +39,7 @@ struct SearchCategoryView: View {
                             .animation(.linear(duration: 0.15))
                         }
                     }
+                    .padding(.bottom, 10)
                     .animation(.interactiveSpring())
                 }
             }

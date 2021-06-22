@@ -65,23 +65,20 @@ class CategoryLoader: ObservableObject {
         self.cancellable = []
         
 
-        self.$categories.sink { categories in
-            if categories.isEmpty {
-                return
-            }
-
-            categories.forEach { category in
-                URLSession.shared.dataTaskPublisher(for: URL(string: category.image)!)
-                    .map { UIImage(data: $0.data) }
-                    .retry(10)
-                    .replaceError(with: nil)
-                    .receive(on: DispatchQueue.main)
-                    .sink { [weak self] in
-                        self?.images[category.categoryId] = $0
-                        print(category.categoryId)
-                    }.store(in: &self.cancellable)
-            }
-        }.store(in: &cancellable)
+        self.$categories
+            .debounce(for: 0.5, scheduler: DispatchQueue.main)
+            .sink { categories in
+                categories.forEach { category in
+                    URLSession.shared.dataTaskPublisher(for: URL(string: category.image)!)
+                        .map { UIImage(data: $0.data) }
+                        .retry(10)
+                        .replaceError(with: nil)
+                        .receive(on: DispatchQueue.main)
+                        .sink { [weak self] in
+                            self?.images[category.categoryId] = $0
+                        }.store(in: &self.cancellable)
+                }
+            }.store(in: &cancellable)
     }
 
     deinit {

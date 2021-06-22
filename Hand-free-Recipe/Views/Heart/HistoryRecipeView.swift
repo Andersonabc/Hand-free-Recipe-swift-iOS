@@ -74,7 +74,7 @@ struct HistoryRecipeView: View {
 
 struct HistoryRecipeView_Previews: PreviewProvider {
     static var previews: some View {
-        HistoryRecipeView(recipe: Recipe(name: "早餐", coverImage: "breakfast", ingredients: generateFakeIngredients(), steps: generateFakeSteps(), estimatedTime: 2000, yields: 1))
+        HistoryRecipeView(recipe: Recipe(id: "0", name: "早餐", coverImage: "breakfast", ingredients: generateFakeIngredients(), steps: generateFakeSteps(), estimatedTime: 2000, yields: 1))
             .preferredColorScheme(.dark)
     }
 }

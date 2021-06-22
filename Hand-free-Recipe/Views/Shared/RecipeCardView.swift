@@ -17,7 +17,7 @@ struct RecipeCardView: View {
 
     init(recipe: Recipe) {
         self.recipe = recipe
-        self._imageLoader = StateObject(wrappedValue: ImageLoader(url: URL(string: recipe.coverImage)!))
+        self._imageLoader = StateObject(wrappedValue: ImageLoader(url: URL(string: recipe.coverImage)!, cache: Environment(\.imageCache).wrappedValue))
     }
 
     var body: some View {

@@ -23,6 +23,8 @@ class CategoryLoader: ObservableObject {
     private var cancellable: Set<AnyCancellable>
     
     private let db = Firestore.firestore()
+    
+    private var cache: ImageCache?
 
     func load() {
         // TODO: Firebase request
@@ -58,27 +60,33 @@ class CategoryLoader: ObservableObject {
         })
     }
 
-    init(db_topic: String) {
+    init(db_topic: String, cache: ImageCache? = nil) {
         self.topic = db_topic
         self.categories = []
         self.images = [:]
         self.cancellable = []
-        
+        self.cache = cache
 
         self.$categories
             .debounce(for: 0.5, scheduler: DispatchQueue.main)
             .sink { categories in
                 categories.forEach { category in
-                    URLSession.shared.dataTaskPublisher(for: URL(string: category.image)!)
+                    let url = URL(string: category.image)!
+                    URLSession.shared.dataTaskPublisher(for: url)
                         .map { UIImage(data: $0.data) }
                         .retry(10)
                         .replaceError(with: nil)
+                        .handleEvents(receiveOutput: { [weak self] in self?.cache($0, url: url) })
                         .receive(on: DispatchQueue.main)
                         .sink { [weak self] in
                             self?.images[category.categoryId] = $0
                         }.store(in: &self.cancellable)
                 }
             }.store(in: &cancellable)
+    }
+
+    private func cache(_ image: UIImage?, url: URL) {
+        image.map { cache?[url] = $0 }
     }
 
     deinit {

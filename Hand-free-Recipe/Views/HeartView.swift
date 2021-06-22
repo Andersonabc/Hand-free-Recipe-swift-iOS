@@ -38,7 +38,7 @@ struct HeartView: View {
             .frame(width: UIScreen.main.bounds.width)
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
         }
-        .background(Color("MainView"))
+        .background(Color("MainView").ignoresSafeArea())
         .navigationBarHidden(true)
     }
 }

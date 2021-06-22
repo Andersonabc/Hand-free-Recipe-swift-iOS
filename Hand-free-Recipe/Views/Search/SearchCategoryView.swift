@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SearchCategoryView: View {
-    @StateObject private var categoryLoader: CategoryLoader = CategoryLoader(db_topic: "category")
+    @StateObject private var categoryLoader: CategoryLoader = CategoryLoader(db_topic: "category", cache: Environment(\.imageCache).wrappedValue)
 
     @State var isLoading: Bool = false
     
@@ -34,11 +34,12 @@ struct SearchCategoryView: View {
                                 searchText = category.name
                                 gotoSearchResultPage = true
                             }, label: {
-                                CategoryCardView(categoryName: category.name, image: categoryLoader.images[category.categoryId] ?? UIImage())
+                                CategoryCardView(categoryName: category.name, image: categoryLoader.images[category.categoryId] ?? UIImage(named: "placeholder")!)
                             })
                             .animation(.linear(duration: 0.15))
                         }
                     }
+                    .padding(.bottom, 10)
                     .animation(.interactiveSpring())
                 }
             }

@@ -13,9 +13,9 @@ class Recipe: Hashable {
     }
 
     func hash(into hasher: inout Hasher) {
-        hasher.combine(name)
+        hasher.combine(self._id)
     }
-    
+
     var coverImage: String {
         get {
             return self._coverImage
@@ -52,7 +52,21 @@ class Recipe: Hashable {
         }
     }
     
-    init(name: String, coverImage: String, ingredients: [Ingredients], steps: [RecipeStep], estimatedTime: Int, yields: Int) {
+    var id: String {
+        get {
+            return self._id
+        }
+    }
+    
+    var categoryIds: [Int] {
+        get {
+            return self._categoryIds
+        }
+    }
+
+    init(categoryIds: [Int], id: String, name: String, coverImage: String, ingredients: [Ingredients], steps: [RecipeStep], estimatedTime: Int, yields: Int) {
+        self._categoryIds = categoryIds
+        self._id = id
         self._name = name
         self._coverImage = coverImage
         self._estimatedTime = estimatedTime
@@ -61,6 +75,8 @@ class Recipe: Hashable {
         self._yields = 1
     }
 
+    private let _categoryIds: [Int]
+    private let _id: String
     private let _name: String
     private let _coverImage: String
     private let _estimatedTime: Int

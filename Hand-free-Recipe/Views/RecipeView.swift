@@ -7,99 +7,115 @@
 
 import SwiftUI
 
-// TODO: send recipes
 struct RecipeView: View {
-//    @Environment(\.colorScheme) var colorScheme
-
     @State var isLike: Bool = false;
     @State var isFullScreenImage: Bool = false;
     @State var isPresented: Bool = false;
-    @State var uiNavigationController: UINavigationController?
     
-    let example_recipe: Recipe = Recipe(name: "炭烤透抽", coverImage: "example_food", ingredients: generateFakeIngredients(), steps: generateFakeSteps(), estimatedTime: 42000, yields: 1)
+    @ObservedObject var imageLoader: ImageLoader
+    @ObservedObject var moreRecipeLoader: SearchResultLoader
+
+    let recipe: Recipe
+    
+    init(recipe: Recipe) {
+        self.recipe = recipe
+        self.imageLoader = ImageLoader(url: URL(string: recipe.coverImage)!, cache: Environment(\.imageCache).wrappedValue)
+        self.moreRecipeLoader = SearchResultLoader(keyword: "", size: 8, categoryId: recipe.categoryIds.shuffled()[0])
+    }
 
     var body: some View {
         ScrollView([.vertical], showsIndicators: true) {
-            VStack {
-                GeometryReader { geometry in
-                    VStack {
-                        if geometry.frame(in: .global).minY <= 0 {
-                            Image(example_recipe.coverImage)
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: geometry.size.width, height: geometry.size.height)
-                                .clipped()
-                                .onTapGesture {
-                                    self.isFullScreenImage.toggle()
-                                }
-                        } else {
-                            Image(example_recipe.coverImage)
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: geometry.size.width, height: geometry.size.height + geometry.frame(in: .global).minY)
-                                .clipped()
-                                .offset(y: -geometry.frame(in: .global).minY)
+            if moreRecipeLoader.results.isEmpty {
+                ActivityIndicator(style: .circle(width: 5, duration: 0.9, size: 100))
+                    .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+            }
+            else {
+                VStack {
+                    GeometryReader { geometry in
+                        VStack {
+                            if geometry.frame(in: .global).minY <= 0 {
+                                Image(uiImage: imageLoader.image ?? UIImage(named: "placeholder")!)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: geometry.size.width, height: geometry.size.height)
+                                    .clipped()
+                                    .onTapGesture {
+                                        self.isFullScreenImage.toggle()
+                                    }
+                            } else {
+                                Image(uiImage: imageLoader.image ?? UIImage(named: "placeholder")!)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: geometry.size.width, height: geometry.size.height + geometry.frame(in: .global).minY)
+                                    .clipped()
+                                    .offset(y: -geometry.frame(in: .global).minY)
+                            }
                         }
                     }
+                    .frame(height: 400)
+                    VStack(alignment: .leading) {
+                        HStack {
+                            Text(recipe.name)
+                                .font(.largeTitle)
+                            Spacer()
+                        }
+                        
+                        HStack {
+                            Spacer()
+                            NavigationLink(destination: RecipePresentationView(recipeName: recipe.name, steps: recipe.steps)){
+                                Text("卡片模式")
+                                    .font(.title2)
+                                    .accentColor(Color("Accent"))
+                                    .padding()
+                                    .border(Color.purple)
+                                    .cornerRadius(3)
+                            }
+                        }
+
+                        StraightLine()
+                        
+                        RecipeCookingDurationView(estimatedTime: recipe.estimatedTime)
+
+                        RecipeDetailView(amount: recipe.yields, ingredients: recipe.ingredients)
+
+                        StraightLine()
+                            .padding(EdgeInsets(top: 18, leading: 0, bottom: 18, trailing: 0))
+
+                        Text("步驟")
+                            .font(.title)
+
+                        ForEach(recipe.steps.indices) { step in
+                            RecipeStepView(step: step + 1, description: recipe.steps[step].description, image: recipe.steps[step].image)
+                                .padding(.top, 18)
+                        }
+                    }
+                    .padding()
                 }
-                .frame(height: 400)
-                VStack(alignment: .leading) {
-                    HStack {
-                        Text(example_recipe.name)
-                            .font(.largeTitle)
-                        Spacer()
-                    }
-                    
-                    HStack {
-                        Spacer()
-                        NavigationLink(destination: RecipePresentationView(recipeName: example_recipe.name, steps: example_recipe.steps)){
-                            Text("卡片模式")
-                                .font(.title2)
-                                .accentColor(Color("Accent"))
-                                .padding()
-                                .border(Color.purple)
-                                .cornerRadius(3)
-                        }
-                    }
-                    
-                    StraightLine()
-                    
-                    RecipeCookingDurationView(estimatedTime: example_recipe.estimatedTime)
+                .background(Color("SecondaryView"))
+                .padding(.bottom, 5)
 
-                    RecipeDetailView(amount: "", ingredients: example_recipe.ingredients);
-                    
-                    StraightLine()
-                        .padding(EdgeInsets(top: 18, leading: 0, bottom: 18, trailing: 0))
-                    
-                    Text("步驟")
+                HStack {
+                    Text("更多推薦")
                         .font(.title)
-
-                    ForEach(example_recipe.steps.indices) { step in
-                        RecipeStepView(step: step + 1, description: example_recipe.steps[step].description, image: example_recipe.steps[step].image)
-                            .padding(.top, 18)
-                    }
+                    Spacer()
                 }
                 .padding()
-            }
-            .background(Color("SecondaryView"))
-            .padding(.bottom, 5)
 
-            HStack {
-                Text("更多推薦")
-                    .font(.title)
-                Spacer()
+                ScrollableStackRecipeView(recipes: moreRecipeLoader.results, showMore: false, isUnlimited: false)
+                    .padding(.bottom, 10)
             }
-            .padding()
-
-            ScrollableStackRecipeView(recipes: (0...10).map { _ in Recipe(name: "早餐", coverImage: "breakfast", ingredients: generateFakeIngredients(), steps: generateFakeSteps(), estimatedTime: Int.random(in: 2400..<190000), yields: 1) }, showMore: false, isUnlimited: false)
-                .padding(.bottom, 15)
         }
+        .navigationBarHidden(false)
         .background(Color("MainView"))
         .toolbar(content: {
                     ToolBarContent(isLike: $isLike)})
-        .edgesIgnoringSafeArea(.top)
+        .edgesIgnoringSafeArea(.vertical)
+        .onAppear {
+            imageLoader.load()
+            moreRecipeLoader.load()
+        }
         .fullScreenCover(isPresented: $isFullScreenImage, content: {
-            ImageFullScreenView(isFullScreenImage: $isFullScreenImage, image: example_recipe.coverImage)
+            ImageFullScreenView(isFullScreenImage: $isFullScreenImage, image: imageLoader.image ?? UIImage(named: "placeholder")!)
         })
     }
 }
@@ -150,10 +166,9 @@ struct RecipeView_Previews: PreviewProvider {
     
     static var previews: some View {
         NavigationView {
-            RecipeView()
+            RecipeView(recipe: Recipe(categoryIds: [1], id: "0", name: "早餐", coverImage: "breakfast", ingredients: generateFakeIngredients(), steps: generateFakeSteps(), estimatedTime: Int.random(in: 2400..<190000), yields: 1))
                 .preferredColorScheme(.light)
         }
         .navigationViewStyle(StackNavigationViewStyle())
-
     }
 }

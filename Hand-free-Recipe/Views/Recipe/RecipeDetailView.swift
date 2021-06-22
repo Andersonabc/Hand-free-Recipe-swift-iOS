@@ -10,7 +10,7 @@ import SwiftUI
 // TODO: Need to refactor
 
 struct RecipeDetailView: View {
-    let amount: String?
+    let amount: Int
     let ingredients: [Ingredients]
 
     var body: some View {
@@ -20,18 +20,16 @@ struct RecipeDetailView: View {
                     .font(.title)
                 Spacer()
             }
-            if let amount = amount {
-                HStack {
-                    Label(
-                        title: { Text(amount) },
-                        icon: { Image(systemName: "person") }
-                    )
-                    Spacer()
-                }
+            HStack {
+                Label(
+                    title: { Text("\(amount)") },
+                    icon: { Image(systemName: "person") }
+                )
+                Spacer()
             }
         }
         .padding(.bottom, 10)
-    
+
         VStack(alignment: .leading) {
             ForEach(ingredients.indices) { i in
                 if ingredients[i].isComposite() {
@@ -64,7 +62,7 @@ struct RecipeDetailView: View {
 struct RecipeDetailView_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-            RecipeDetailView(amount: nil, ingredients: [])
+            RecipeDetailView(amount: 1, ingredients: [])
         }
         .padding()
         .preferredColorScheme(.dark)

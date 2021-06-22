@@ -31,8 +31,17 @@ class ImageLoader: ObservableObject {
 
         cancellable = URLSession.shared.dataTaskPublisher(for: url)
             .map { UIImage(data: $0.data) }
+            .retry(10)
             .replaceError(with: nil)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] in self?.image = $0 }
+    }
+    
+    func cancel() {
+        cancellable?.cancel()
+    }
+    
+    deinit {
+        self.cancel()
     }
 }

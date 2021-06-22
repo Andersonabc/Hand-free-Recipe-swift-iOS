@@ -11,18 +11,33 @@ struct ScrollableStackRecipeView: View {
     let recipes: [Recipe]
     let showMore: Bool
     let isUnlimited: Bool
+    let keyword: String
+    
+    init(recipes: [Recipe], showMore: Bool, isUnlimited: Bool) {
+        self.recipes = recipes
+        self.showMore = showMore
+        self.isUnlimited = isUnlimited
+        self.keyword = ""
+    }
+    
+    init(recipes: [Recipe], showMore: Bool, isUnlimited: Bool, keyword: String) {
+        self.recipes = recipes
+        self.showMore = showMore
+        self.isUnlimited = isUnlimited
+        self.keyword = keyword
+    }
 
     var body: some View {
         ScrollView([.horizontal], showsIndicators: false) {
             if isUnlimited {
                 LazyHStack {
-                    ForEach(recipes.indices) { index in
-                        RecipeCardView(recipe: recipes[index])
+                    ForEach(recipes, id: \.self) { recipe in
+                        RecipeCardView(recipe: recipe)
                     }
 
                     if showMore {
                         NavigationLink(
-                            destination: Text("Destination")) {
+                            destination: SearchResultView(keyword: keyword, size: 10)) {
                             ZStack {
                                 Image(systemName: "arrow.right")
                                     .font(.title)
@@ -40,13 +55,13 @@ struct ScrollableStackRecipeView: View {
             }
             else {
                 HStack {
-                    ForEach(recipes.indices) { index in
-                        RecipeCardView(recipe: recipes[index]).padding([.horizontal])
+                    ForEach(recipes, id: \.self) { recipe in
+                        RecipeCardView(recipe: recipe).padding([.horizontal])
                     }
 
                     if showMore {
                         NavigationLink(
-                            destination: Text("Destination")) {
+                            destination: SearchResultView(keyword: keyword, size: 10)) {
                             ZStack {
                                 Image(systemName: "arrow.right")
                                     .font(.title)
@@ -68,7 +83,7 @@ struct ScrollableStackRecipeView: View {
 
 struct ScrollableStackRecipeView_Previews: PreviewProvider {
     static var previews: some View {
-        ScrollableStackRecipeView(recipes: (0...10).map { _ in Recipe(name: "早餐", coverImage: "breakfast", ingredients: generateFakeIngredients(), steps: generateFakeSteps(), estimatedTime: Int.random(in: 2400..<190000), yields: 1) }, showMore: true, isUnlimited: false)
+        ScrollableStackRecipeView(recipes: (0...10).map { _ in Recipe(id: "0", name: "早餐", coverImage: "breakfast", ingredients: generateFakeIngredients(), steps: generateFakeSteps(), estimatedTime: Int.random(in: 2400..<190000), yields: 1) }, showMore: true, isUnlimited: false)
             .preferredColorScheme(.light)
     }
 }

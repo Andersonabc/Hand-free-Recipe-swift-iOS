@@ -37,7 +37,7 @@ struct ScrollableStackRecipeView: View {
 
                     if showMore {
                         NavigationLink(
-                            destination: SearchResultView(keyword: keyword, size: 10)) {
+                            destination: SearchView(searchedText: keyword, inSearchResultPage: true)) {
                             ZStack {
                                 Image(systemName: "arrow.right")
                                     .font(.title)
@@ -61,7 +61,7 @@ struct ScrollableStackRecipeView: View {
 
                     if showMore {
                         NavigationLink(
-                            destination: SearchResultView(keyword: keyword, size: 10)) {
+                            destination: SearchView(searchedText: keyword, inSearchResultPage: true)) {
                             ZStack {
                                 Image(systemName: "arrow.right")
                                     .font(.title)

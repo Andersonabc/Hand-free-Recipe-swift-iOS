@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SearchCategoryView: View {
-    @StateObject private var categoryLoader: CategoryLoader = CategoryLoader(db_topic: "category")
+    @StateObject private var categoryLoader: CategoryLoader = CategoryLoader(db_topic: "category", cache: Environment(\.imageCache).wrappedValue)
 
     @State var isLoading: Bool = false
     

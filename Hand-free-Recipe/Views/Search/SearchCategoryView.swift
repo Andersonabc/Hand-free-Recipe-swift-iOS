@@ -34,7 +34,7 @@ struct SearchCategoryView: View {
                                 searchText = category.name
                                 gotoSearchResultPage = true
                             }, label: {
-                                CategoryCardView(categoryName: category.name, image: categoryLoader.images[category.categoryId] ?? UIImage())
+                                CategoryCardView(categoryName: category.name, image: categoryLoader.images[category.categoryId] ?? UIImage(named: "placeholder")!)
                             })
                             .animation(.linear(duration: 0.15))
                         }

@@ -27,18 +27,24 @@ class SearchResultLoader: ObservableObject {
 
     private var lastCount: Int
 
-    init(keyword: String, size: Int) {
+    init(keyword: String, size: Int, categoryId: Int = -1) {
         self.keyword = keyword
         self.size = size
         self.lastCount = -1
         self.after = nil
+        if categoryId != -1 {
+            self.id = categoryId
+        }
     }
 
-    init(keyword: String, after: QueryDocumentSnapshot, size: Int) {
+    init(keyword: String, after: QueryDocumentSnapshot, size: Int, categoryId: Int = -1) {
         self.keyword = keyword
         self.size = size
         self.lastCount = -1
         self.after = after
+        if categoryId != -1 {
+            self.id = categoryId
+        }
     }
 
     func load() {
@@ -46,18 +52,23 @@ class SearchResultLoader: ObservableObject {
             return
         }
 
-        db.collection("category").whereField("name", in: [keyword, keyword.lowercased(), keyword.capitalized]).getDocuments { snapshot, error in
-            guard let documents = snapshot?.documents else { return }
-            
-            if let id = documents.first?.data()["categoryId"] as? Int {
-                self.id = id
-                self.fetchRecipeByCategoryId(id: id)
-            }
-            else if !self.keyword.isEmpty {
-                self.fetchRecipeByName()
-            }
-            else {
-                self.fetchRecipe()
+        if let id = self.id {
+            self.fetchRecipeByCategoryId(id: id)
+        }
+        else {
+            db.collection("category").whereField("name", in: [keyword, keyword.lowercased(), keyword.capitalized]).getDocuments { snapshot, error in
+                guard let documents = snapshot?.documents else { return }
+                
+                if let id = documents.first?.data()["categoryId"] as? Int {
+                    self.id = id
+                    self.fetchRecipeByCategoryId(id: id)
+                }
+                else if !self.keyword.isEmpty {
+                    self.fetchRecipeByName()
+                }
+                else {
+                    self.fetchRecipe()
+                }
             }
         }
     }
@@ -156,6 +167,7 @@ class SearchResultLoader: ObservableObject {
     }
 
     func createNewRecipe(id: String, data: [String : Any]) -> Recipe {
+        let categoryIds = data["categoryId"] as! [Int]
         let name = data["name"] as! String
         let cover = data["imageUrl"] as! String
         let duration = data["total_time"] as! Int
@@ -173,6 +185,6 @@ class SearchResultLoader: ObservableObject {
             _instruction.append(RecipeStep(description: instruction, image: nil))
         }
         
-        return Recipe(id: id, name: name, coverImage: cover, ingredients: _ingredients, steps: _instruction, estimatedTime: duration, yields: yields)
+        return Recipe(categoryIds: categoryIds, id: id, name: name, coverImage: cover, ingredients: _ingredients, steps: _instruction, estimatedTime: duration, yields: yields)
     }
 }

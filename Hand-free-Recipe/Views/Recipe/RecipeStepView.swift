@@ -12,6 +12,14 @@ struct RecipeStepView: View {
     let description: String
     let image: String?
     @State var isFullScreenView: Bool = false
+    @ObservedObject var imageLoader: ImageLoader
+    
+    init(step: Int, description: String, image: String?) {
+        self.step = step
+        self.description = description
+        self.image = image
+        self.imageLoader = ImageLoader(url: URL(string: image != nil ? image! : "http://test.com")!, cache: Environment(\.imageCache).wrappedValue)
+    }
 
     var body: some View {
         VStack {
@@ -22,10 +30,10 @@ struct RecipeStepView: View {
                 )
                 Spacer()
             }
-            if let image = image {
+            if image != nil {
                 HStack {
                     Spacer()
-                    Image(image)
+                    Image(uiImage: imageLoader.image ?? UIImage(named: "placeholder")!)
                         .resizable()
                         .scaledToFit()
                         .frame(width: UIScreen.main.bounds.width * 0.85)
@@ -35,8 +43,13 @@ struct RecipeStepView: View {
                         }
                 }
                 .fullScreenCover(isPresented: $isFullScreenView, content: {
-                    ImageFullScreenView(isFullScreenImage: $isFullScreenView, image: image)
+                    ImageFullScreenView(isFullScreenImage: $isFullScreenView, image: imageLoader.image ?? UIImage(named: "placeholder")!)
                 })
+            }
+        }
+        .onAppear {
+            if image != nil {
+                imageLoader.load()
             }
         }
     }

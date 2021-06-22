@@ -57,8 +57,15 @@ class Recipe: Hashable {
             return self._id
         }
     }
+    
+    var categoryIds: [Int] {
+        get {
+            return self._categoryIds
+        }
+    }
 
-    init(id: String, name: String, coverImage: String, ingredients: [Ingredients], steps: [RecipeStep], estimatedTime: Int, yields: Int) {
+    init(categoryIds: [Int], id: String, name: String, coverImage: String, ingredients: [Ingredients], steps: [RecipeStep], estimatedTime: Int, yields: Int) {
+        self._categoryIds = categoryIds
         self._id = id
         self._name = name
         self._coverImage = coverImage
@@ -68,6 +75,7 @@ class Recipe: Hashable {
         self._yields = 1
     }
 
+    private let _categoryIds: [Int]
     private let _id: String
     private let _name: String
     private let _coverImage: String

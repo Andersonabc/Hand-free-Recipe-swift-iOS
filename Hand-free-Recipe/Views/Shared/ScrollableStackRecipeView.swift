@@ -83,7 +83,7 @@ struct ScrollableStackRecipeView: View {
 
 struct ScrollableStackRecipeView_Previews: PreviewProvider {
     static var previews: some View {
-        ScrollableStackRecipeView(recipes: (0...10).map { _ in Recipe(id: "0", name: "早餐", coverImage: "breakfast", ingredients: generateFakeIngredients(), steps: generateFakeSteps(), estimatedTime: Int.random(in: 2400..<190000), yields: 1) }, showMore: true, isUnlimited: false)
+        ScrollableStackRecipeView(recipes: (0...10).map { _ in Recipe(categoryIds: [1], id: "0", name: "早餐", coverImage: "breakfast", ingredients: generateFakeIngredients(), steps: generateFakeSteps(), estimatedTime: Int.random(in: 2400..<190000), yields: 1) }, showMore: true, isUnlimited: false)
             .preferredColorScheme(.light)
     }
 }

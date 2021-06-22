@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HistoryView: View {
     
-    let BLD: [Recipe] = (0...10).map { _ in Recipe(id: "0", name: "早餐",
+    let BLD: [Recipe] = (0...10).map { _ in Recipe(categoryIds: [1], id: "0", name: "早餐",
                                                    coverImage: "breakfast",
                                                    ingredients: generateFakeIngredients(),
                                                    steps: generateFakeSteps(),

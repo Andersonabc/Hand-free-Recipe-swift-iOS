@@ -21,9 +21,9 @@ struct RecipeCardView: View {
     }
 
     var body: some View {
-        NavigationLink(destination: RecipeView()) {
+        NavigationLink(destination: RecipeView(recipe: recipe)) {
             VStack {
-                Image(uiImage: imageLoader.image ?? UIImage())
+                Image(uiImage: imageLoader.image ?? UIImage(named: "placeholder")!)
                     .resizable()
                     .frame(maxWidth: 300, maxHeight: 300)
                     .aspectRatio(contentMode: .fill)
@@ -74,7 +74,7 @@ struct RecipeCardView: View {
 
 struct RecipeCardView_Previews: PreviewProvider {
     static var previews: some View {
-        RecipeCardView(recipe: Recipe(id: "0", name: "早餐", coverImage: "breakfast", ingredients: generateFakeIngredients(), steps: generateFakeSteps(), estimatedTime: 2000, yields: 1))
+        RecipeCardView(recipe: Recipe(categoryIds: [1], id: "0", name: "早餐", coverImage: "breakfast", ingredients: generateFakeIngredients(), steps: generateFakeSteps(), estimatedTime: 2000, yields: 1))
             .preferredColorScheme(.light)
     }
 }

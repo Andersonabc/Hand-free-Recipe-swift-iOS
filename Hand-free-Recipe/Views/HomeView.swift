@@ -8,62 +8,110 @@
 import SwiftUI
 
 struct HomeView: View {
-    let BLD: [Recipe] = (0...10).map { _ in Recipe(name: "早餐", coverImage: "breakfast", ingredients: generateFakeIngredients(), steps: generateFakeSteps(), estimatedTime: Int.random(in: 2400..<190000), yields: 1) }
-    let new: [Recipe] =  (0...50).map { _ in Recipe(name: "早餐", coverImage: "example_food", ingredients: generateFakeIngredients(), steps: generateFakeSteps(), estimatedTime: Int.random(in: 2400..<190000), yields: 1) }
+    @StateObject var breakfast = SearchResultLoader(keyword: "breakfast", size: 5)
+    @StateObject var lunch = SearchResultLoader(keyword: "lunch", size: 5)
+    @StateObject var dinner = SearchResultLoader(keyword: "dinner", size: 5)
+    @StateObject var new = SearchResultLoader(keyword: "", size: 10)
     
+    @State var loadOnce = false
+    @State var page = 0
+    let size = 10
+
     var body: some View {
-        ScrollView([.vertical], showsIndicators: false) {
-            VStack {
-                HStack {
-                    Text("早餐推薦")
-                        .font(.largeTitle)
-                        .bold()
-                        .padding()
-                    Spacer()
-                    // Optional: more recipes
-                }.padding(.bottom, -5)
-                ScrollableStackRecipeView(recipes: BLD, showMore: true, isUnlimited: false)
+        Group {
+            if breakfast.results.isEmpty || lunch.results.isEmpty || dinner.results.isEmpty || new.results.isEmpty {
+                ActivityIndicator(style: .circle(width: 5, duration: 0.9, size: 100))
+                    .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
             }
-            VStack {
-                HStack {
-                    Text("午餐推薦")
-                        .font(.largeTitle)
-                        .bold()
-                        .padding()
-                    Spacer()
-                    // Optional: more recipes
-                }.padding(.bottom, -5)
-                ScrollableStackRecipeView(recipes: BLD, showMore: true, isUnlimited: false)
-            }
-            VStack {
-                HStack {
-                    Text("晚餐推薦")
-                        .font(.largeTitle)
-                        .bold()
-                        .padding()
-                    Spacer()
-                    // Optional: more recipes
-                }.padding(.bottom, -5)
-                ScrollableStackRecipeView(recipes: BLD, showMore: true, isUnlimited: false)
-            }
-            VStack {
-                HStack {
-                    Text("最新推薦")
-                        .font(.largeTitle)
-                        .bold()
-                        .padding()
-                    Spacer()
-                }
-                LazyVGrid(columns: [GridItem(spacing: 10), GridItem()], alignment: .center, spacing: 15) {
-                    ForEach(new.indices) { index in
-                        RecipeCardView(recipe: new[index])
+            else {
+                ScrollView([.vertical], showsIndicators: false) {
+                    VStack {
+                        HStack {
+                            Text("Breakfast Recommendation")
+                                .font(.largeTitle)
+                                .bold()
+                                .padding()
+                            Spacer()
+                            // Optional: more recipes
+                        }.padding(.bottom, -5)
+                        ScrollableStackRecipeView(recipes: breakfast.results, showMore: true, isUnlimited: false, keyword: "Breakfast")
+                    }
+                    VStack {
+                        HStack {
+                            Text("Lunch Recommendation")
+                                .font(.largeTitle)
+                                .bold()
+                                .padding()
+                            Spacer()
+                            // Optional: more recipes
+                        }.padding(.bottom, -5)
+                        ScrollableStackRecipeView(recipes: lunch.results, showMore: true, isUnlimited: false, keyword: "Lunch")
+                    }
+                    VStack {
+                        HStack {
+                            Text("Dinner Recommendation")
+                                .font(.largeTitle)
+                                .bold()
+                                .padding()
+                            Spacer()
+                            // Optional: more recipes
+                        }.padding(.bottom, -5)
+                        ScrollableStackRecipeView(recipes: dinner.results, showMore: true, isUnlimited: false, keyword: "Dinner")
+                    }
+                    VStack {
+                        HStack {
+                            Text("Newest Recipe Recommendation")
+                                .font(.largeTitle)
+                                .bold()
+                                .padding()
+                            Spacer()
+                        }
+                        LazyVGrid(columns: [GridItem(spacing: 10), GridItem()], alignment: .center, spacing: 15) {
+                            ForEach(new.results, id: \.self) { recipe in
+                                RecipeCardView(recipe: recipe)
+                            }
+                        }
+                        .padding([.horizontal])
+
+                        if !new.isLastPage {
+                            if new.results.count == (page+1) * size {
+                                Button(action: {
+                                    page += 1
+                                    new.next()
+                                }, label: {
+                                    Text("More...?")
+                                        .foregroundColor(.primary)
+                                        .font(.title2)
+                                        .frame(width: 200, height: 40)
+                                        .clipShape(RoundedRectangle(cornerRadius: 18))
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 18)
+                                                .stroke(Color.secondary, lineWidth: 1)
+                                        )
+                                        .padding()
+                                })
+                            }
+                            else {
+                                ActivityIndicator(style: .circle(width: 3, duration: 0.8, size: 40))
+                                    .padding(.vertical, 10)
+                            }
+                        }
                     }
                 }
-                .padding()
+            }
+        }
+        .onAppear {
+            if !self.loadOnce {
+                breakfast.load()
+                lunch.load()
+                dinner.load()
+                new.load()
+                
+                self.loadOnce = true
             }
         }
         .navigationBarHidden(true)
-        .background(Color("MainView"))
+        .background(Color("MainView").ignoresSafeArea())
     }
 }
 

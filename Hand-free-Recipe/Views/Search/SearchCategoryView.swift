@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SearchCategoryView: View {
-    @StateObject private var categoryLoader: CategoryLoader = CategoryLoader(db_topic: "category")
+    @StateObject private var categoryLoader: CategoryLoader = CategoryLoader(db_topic: "category", cache: Environment(\.imageCache).wrappedValue)
 
     @State var isLoading: Bool = false
     
@@ -39,6 +39,7 @@ struct SearchCategoryView: View {
                             .animation(.linear(duration: 0.15))
                         }
                     }
+                    .padding(.bottom, 10)
                     .animation(.interactiveSpring())
                 }
             }

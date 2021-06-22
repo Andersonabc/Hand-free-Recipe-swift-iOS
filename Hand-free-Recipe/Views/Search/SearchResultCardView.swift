@@ -13,7 +13,7 @@ struct SearchResultCardView: View {
     
     init(recipe: Recipe) {
         self.recipe = recipe
-        self._imageLoader = StateObject(wrappedValue: ImageLoader(url: URL(string: recipe.coverImage)!))
+        self._imageLoader = StateObject(wrappedValue: ImageLoader(url: URL(string: recipe.coverImage)!, cache: Environment(\.imageCache).wrappedValue))
     }
 
     func description() -> String {
@@ -58,7 +58,6 @@ struct SearchResultCardView: View {
             .background(Color("SecondaryView"))
         }
         .foregroundColor(.primary)
-        .navigationTitle("Search")
         .navigationBarHidden(true)
         .onAppear {
             self.imageLoader.load()
@@ -69,7 +68,7 @@ struct SearchResultCardView: View {
 struct SearchResultCardView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            SearchResultCardView(recipe: .init(name: "Test", coverImage: "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F9%2F2021%2F05%2F17%2Frajma-burgers-FT-RECIPE0621.jpg", ingredients: generateFakeIngredients(), steps: [], estimatedTime: 10, yields: 2))
+            SearchResultCardView(recipe: .init(id: "0", name: "Test", coverImage: "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F9%2F2021%2F05%2F17%2Frajma-burgers-FT-RECIPE0621.jpg", ingredients: generateFakeIngredients(), steps: [], estimatedTime: 10, yields: 2))
         }
         .preferredColorScheme(.dark)
     }

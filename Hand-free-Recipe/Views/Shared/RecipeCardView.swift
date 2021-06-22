@@ -12,12 +12,18 @@ import SwiftUI
 struct RecipeCardView: View {
     @State private var isFavorite: Bool = false;
     @State private var tap: Bool = false;
+    @StateObject private var imageLoader: ImageLoader
     let recipe: Recipe
-    
+
+    init(recipe: Recipe) {
+        self.recipe = recipe
+        self._imageLoader = StateObject(wrappedValue: ImageLoader(url: URL(string: recipe.coverImage)!, cache: Environment(\.imageCache).wrappedValue))
+    }
+
     var body: some View {
         NavigationLink(destination: RecipeView()) {
             VStack {
-                Image(recipe.coverImage)
+                Image(uiImage: imageLoader.image ?? UIImage())
                     .resizable()
                     .frame(maxWidth: 300, maxHeight: 300)
                     .aspectRatio(contentMode: .fill)
@@ -60,12 +66,15 @@ struct RecipeCardView: View {
                     }.scaleEffect((tap ? 1.4 : 1))
                 .animation(.spring(response: 0.2, dampingFraction: 1)),
         alignment: .bottomTrailing)
+        .onAppear {
+            self.imageLoader.load()
+        }
     }
 }
 
 struct RecipeCardView_Previews: PreviewProvider {
     static var previews: some View {
-        RecipeCardView(recipe: Recipe(name: "早餐", coverImage: "breakfast", ingredients: generateFakeIngredients(), steps: generateFakeSteps(), estimatedTime: 2000, yields: 1))
+        RecipeCardView(recipe: Recipe(id: "0", name: "早餐", coverImage: "breakfast", ingredients: generateFakeIngredients(), steps: generateFakeSteps(), estimatedTime: 2000, yields: 1))
             .preferredColorScheme(.light)
     }
 }

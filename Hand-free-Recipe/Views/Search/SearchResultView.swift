@@ -11,8 +11,10 @@ struct SearchResultView: View {
     @StateObject var resultLoader: SearchResultLoader
     @State var page: Int = 0
     let size: Int
+    let keyword: String
     
     init(keyword: String, size: Int) {
+        self.keyword = keyword
         self.size = size
         self._resultLoader = StateObject(wrappedValue: SearchResultLoader(keyword: keyword, size: size))
     }
@@ -51,6 +53,8 @@ struct SearchResultView: View {
         .onAppear {
             self.resultLoader.load()
         }
+        .navigationBarHidden(false)
+        .navigationTitle(self.keyword)
     }
 }
 

@@ -16,7 +16,7 @@ struct RecipeView: View {
     @State var isPresented: Bool = false;
     @State var uiNavigationController: UINavigationController?
     
-    let example_recipe: Recipe = Recipe(name: "炭烤透抽", coverImage: "example_food", ingredients: generateFakeIngredients(), steps: generateFakeSteps(), estimatedTime: 42000, yields: 1)
+    let example_recipe: Recipe = Recipe(id: "0", name: "炭烤透抽", coverImage: "example_food", ingredients: generateFakeIngredients(), steps: generateFakeSteps(), estimatedTime: 42000, yields: 1)
 
     var body: some View {
         ScrollView([.vertical], showsIndicators: true) {
@@ -91,7 +91,7 @@ struct RecipeView: View {
             }
             .padding()
 
-            ScrollableStackRecipeView(recipes: (0...10).map { _ in Recipe(name: "早餐", coverImage: "breakfast", ingredients: generateFakeIngredients(), steps: generateFakeSteps(), estimatedTime: Int.random(in: 2400..<190000), yields: 1) }, showMore: false, isUnlimited: false)
+            ScrollableStackRecipeView(recipes: (0...10).map { _ in Recipe(id: "0", name: "早餐", coverImage: "breakfast", ingredients: generateFakeIngredients(), steps: generateFakeSteps(), estimatedTime: Int.random(in: 2400..<190000), yields: 1) }, showMore: false, isUnlimited: false)
                 .padding(.bottom, 15)
         }
         .background(Color("MainView"))

@@ -47,6 +47,7 @@ struct SearchResultView: View {
                 else {
                     ActivityIndicator(style: .circle(width: 3, duration: 0.8, size: 40))
                         .padding(.vertical, 10)
+                        .frame(width: UIScreen.main.bounds.width)
                 }
             }
         }

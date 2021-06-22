@@ -27,7 +27,7 @@ struct SearchResultCardView: View {
     }
     
     var body: some View {
-        NavigationLink(destination: RecipeView()) {
+        NavigationLink(destination: RecipeView(recipe: recipe).edgesIgnoringSafeArea(.vertical)) {
             HStack(alignment: .top) {
                 VStack(alignment: .leading) {
                     Text(recipe.name)
@@ -47,7 +47,7 @@ struct SearchResultCardView: View {
                 .padding([.vertical, .leading])
                 .padding(.trailing, 10)
                 
-                Image(uiImage: imageLoader.image ?? UIImage())
+                Image(uiImage: imageLoader.image ?? UIImage(named: "placeholder")!)
                     .resizable()
                     .frame(width: 200, height: 180)
                     .aspectRatio(contentMode: .fill)
@@ -68,7 +68,7 @@ struct SearchResultCardView: View {
 struct SearchResultCardView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            SearchResultCardView(recipe: .init(id: "0", name: "Test", coverImage: "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F9%2F2021%2F05%2F17%2Frajma-burgers-FT-RECIPE0621.jpg", ingredients: generateFakeIngredients(), steps: [], estimatedTime: 10, yields: 2))
+            SearchResultCardView(recipe: .init(categoryIds: [1], id: "0", name: "Test", coverImage: "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F9%2F2021%2F05%2F17%2Frajma-burgers-FT-RECIPE0621.jpg", ingredients: generateFakeIngredients(), steps: [], estimatedTime: 10, yields: 2))
         }
         .preferredColorScheme(.dark)
     }

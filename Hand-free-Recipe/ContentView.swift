@@ -14,7 +14,7 @@ struct ContentView: View {
     init() {
         UITabBar.appearance().unselectedItemTintColor = UIColor(Color.primary)
     }
-    
+
     var body: some View {
         TabView {
             NavigationView {

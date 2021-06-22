@@ -54,9 +54,9 @@ struct RecipeCardView: View {
         .overlay(
             Image(systemName: isFavorite ? "heart.fill" : "heart")
                     .resizable()
-                    .frame(width: 21, height: 21)
+                    .frame(width: 33, height: 33)
                     .foregroundColor(.red)
-                    .offset(x: -35, y: -20)
+                    .padding()
                     .onTapGesture {
                         tap = true
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {

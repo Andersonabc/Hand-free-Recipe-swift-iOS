@@ -111,7 +111,7 @@ struct HomeView: View {
             }
         }
         .navigationBarHidden(true)
-        .background(Color("MainView").ignoresSafeArea())
+        .background(Color("MainView").edgesIgnoringSafeArea(.top))
     }
 }
 

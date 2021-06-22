@@ -9,7 +9,7 @@ import SwiftUI
 
 struct FavoriteView: View {
     
-    let new: [Recipe] =  (0...50).map { _ in Recipe(id: "0", name: "早餐",
+    let new: [Recipe] =  (0...50).map { _ in Recipe(categoryIds: [1], id: "0", name: "早餐",
                                                     coverImage: "example_food",
                                                     ingredients: generateFakeIngredients(),
                                                     steps: generateFakeSteps(),

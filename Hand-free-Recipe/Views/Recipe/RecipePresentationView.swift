@@ -11,7 +11,7 @@ struct RecipePresentationView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     @State var eyeTrackingMode: Bool = false
-    
+
     let recipeName: String
     var steps: [RecipeStep]
 
@@ -48,6 +48,14 @@ struct RecipePresentationStepView: View {
     let step: Int
     let description: String
     let image: String?
+    @ObservedObject var imageLoader: ImageLoader
+    
+    init(step: Int, description: String, image: String?) {
+        self.step = step
+        self.description = description
+        self.image = image
+        self.imageLoader = ImageLoader(url: URL(string: image != nil ? image! : "http://test.com")!, cache: Environment(\.imageCache).wrappedValue)
+    }
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -60,8 +68,8 @@ struct RecipePresentationStepView: View {
             Text(description)
             Spacer()
             
-            if let image = image {
-                Image(image)
+            if image != nil {
+                Image(uiImage: imageLoader.image ?? UIImage(named: "placeholder")!)
                     .resizable()
                     .scaledToFit()
                     .cornerRadius(4.0)
@@ -69,6 +77,11 @@ struct RecipePresentationStepView: View {
             }
         }
         .padding()
+        .onAppear {
+            if image != nil {
+                self.imageLoader.load()
+            }
+        }
     }
 }
 
@@ -82,7 +95,7 @@ struct CustomBackButton: View {
             presentationMode.wrappedValue.dismiss()
         }, label: {
             Label(
-                title: { Text(recipeName) },
+                title: { Text(recipeName).frame(width: UIScreen.main.bounds.width / 3).lineLimit(1) },
                 icon: { Image(systemName: "chevron.backward") }
             )
         })

@@ -13,6 +13,8 @@ struct SearchResultView: View {
     let size: Int
     let keyword: String
     
+    @State var loadOnce = false
+    
     init(keyword: String, size: Int) {
         self.keyword = keyword
         self.size = size
@@ -53,7 +55,12 @@ struct SearchResultView: View {
             }
         }
         .onAppear {
-            self.resultLoader.load()
+            if !loadOnce {
+                self.resultLoader.load()
+                DispatchQueue.main.async {
+                    self.loadOnce = false
+                }
+            }
         }
         .navigationBarHidden(false)
         .navigationTitle(self.keyword)

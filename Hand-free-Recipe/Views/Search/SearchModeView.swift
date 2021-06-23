@@ -18,7 +18,7 @@ struct SearchModeView: View {
     let inSearchResultPage: Bool
     let searchedText: String
     let searchHistoryHandler = SearchHistoryHandler.shared
-    
+
 
     var body: some View {
         VStack {
